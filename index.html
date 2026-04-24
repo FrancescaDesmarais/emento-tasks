@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Emento – Opgaveliste Prototype</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Inter:wght@400;500;600&display=swap');
+
+  :root {
+    --blue: #1428F0;
+    --blue-tint: rgba(20, 40, 240, 0.08);
+    --blue-light: rgba(20, 40, 240, 0.18);
+    --blue-mid: rgba(20, 40, 240, 0.25);
+    --gray-bg: #e2e2e2;
+    --gray-line: #bbb;
+    --gray-dark: #444;
+    --gray-mid: #888;
+    --ink: #1a1a1a;
+    --white: #fafaf8;
+    --red: #c0392b;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    background: #c8c8c8;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* Phone shell */
+  #app {
+    width: 100%;
+    max-width: 390px;
+    min-height: 100vh;
+    background: var(--white);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── SKETCH FILTER ── */
+  .sketch-border {
+    position: relative;
+  }
+  .sketch-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1.5px solid var(--ink);
+    pointer-events: none;
+    clip-path: polygon(
+      0.3% 1%, 99% 0.2%, 99.5% 99%, 0.5% 98.8%
+    );
+  }
+
+  /* ── SCREENS ── */
+  .screen {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
+    position: absolute;
+    top: 0; left: 0;
+    background: var(--white);
+  }
+  .screen.active {
+    display: flex;
+    position: relative;
+  }
+
+  /* ══════════════════════════════════════
+     SCREEN 1 — START PAGE
+  ══════════════════════════════════════ */
+  #screen-start {
+    background: var(--gray-bg);
+    padding: 60px 24px 40px;
+    align-items: center;
+  }
+
+  .start-title {
+    font-family: 'Caveat', cursive;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--ink);
+    text-align: center;
+    margin-bottom: 28px;
+    letter-spacing: 0.3px;
+  }
+
+  .start-form-wrap {
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .form-group {
+    margin-bottom: 18px;
+  }
+
+  .form-label {
+    font-family: 'Caveat', cursive;
+    font-size: 15px;
+    color: var(--gray-dark);
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+
+  /* number input */
+  .sketch-input {
+    width: 80px;
+    padding: 6px 10px;
+    font-family: 'Caveat', cursive;
+    font-size: 18px;
+    color: var(--ink);
+    background: var(--white);
+    border: none;
+    border-bottom: 2px solid var(--ink);
+    outline: none;
+    appearance: none;
+    -moz-appearance: textfield;
+  }
+  .sketch-input::-webkit-inner-spin-button,
+  .sketch-input::-webkit-outer-spin-button { -webkit-appearance: none; }
+
+  /* toggle */
+  .toggle-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0;
+  }
+  .toggle-btn {
+    font-family: 'Caveat', cursive;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 6px 16px;
+    cursor: pointer;
+    border: 1.5px solid var(--ink);
+    background: var(--white);
+    color: var(--gray-dark);
+    transition: background 0.15s, color 0.15s;
+  }
+  .toggle-btn:first-child { border-right: none; }
+  .toggle-btn.active {
+    background: var(--blue);
+    color: #fff;
+    border-color: var(--blue);
+  }
+  .toggle-btn:first-child.active + .toggle-btn { border-left: 1.5px solid var(--ink); }
+
+  /* checkbox */
+  .checkbox-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+  }
+  .sketch-checkbox {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--ink);
+    background: var(--white);
+    appearance: none;
+    cursor: pointer;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .sketch-checkbox:checked::after {
+    content: '✕';
+    font-family: 'Caveat', cursive;
+    font-size: 16px;
+    color: var(--blue);
+    position: absolute;
+    top: -2px;
+    left: 2px;
+    font-weight: 700;
+  }
+  .checkbox-label {
+    font-family: 'Caveat', cursive;
+    font-size: 15px;
+    color: var(--gray-dark);
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .start-btn {
+    margin-top: 32px;
+    width: 100%;
+    max-width: 280px;
+    padding: 14px 20px;
+    font-family: 'Caveat', cursive;
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    background: var(--blue);
+    border: none;
+    cursor: pointer;
+    letter-spacing: 0.3px;
+    position: relative;
+    clip-path: polygon(0.5% 2%, 99% 0.3%, 99.5% 97%, 1% 99%);
+    transition: opacity 0.15s;
+  }
+  .start-btn:active { opacity: 0.85; }
+
+  /* ══════════════════════════════════════
+     SCREEN 2 — TASK LIST
+  ══════════════════════════════════════ */
+  #screen-tasks {
+    background: var(--white);
+    flex-direction: column;
+  }
+
+  /* Title bar */
+  .title-bar {
+    padding: 52px 16px 12px;
+    background: var(--white);
+    position: relative;
+    z-index: 10;
+  }
+
+  .title-bar-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+
+  .back-btn {
+    font-family: 'Caveat', cursive;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--blue);
+    cursor: pointer;
+    line-height: 1;
+    padding: 2px 6px 2px 2px;
+    border: none;
+    background: none;
+    display: flex;
+    align-items: center;
+  }
+  .back-btn svg {
+    width: 22px;
+    height: 22px;
+    stroke: var(--blue);
+    stroke-width: 2.5;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .screen-title {
+    font-family: 'Caveat', cursive;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  /* Filter pills */
+  .filter-row {
+    display: flex;
+    gap: 8px;
+  }
+
+  .filter-pill {
+    font-family: 'Caveat', cursive;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 6px 16px;
+    border: 1.5px solid var(--blue);
+    background: var(--blue-tint);
+    color: var(--blue);
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+    clip-path: polygon(0.8% 3%, 98.5% 0.5%, 99% 96%, 1% 99%);
+  }
+  .filter-pill.active {
+    background: var(--blue);
+    color: #fff;
+  }
+
+  /* Scrollable task area */
+  .task-scroll {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0 16px 100px;
+    position: relative;
+  }
+
+  /* Background gradient canvas */
+  .task-scroll-inner {
+    position: relative;
+  }
+
+  /* Day group */
+  .day-group {
+    margin-bottom: 4px;
+  }
+
+  .day-header {
+    font-family: 'Caveat', cursive;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gray-mid);
+    padding: 14px 0 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .day-header::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--gray-line);
+    position: relative;
+    top: 1px;
+    /* sketch wobble */
+    clip-path: polygon(0 30%, 100% 10%, 100% 70%, 0 90%);
+  }
+
+  /* Task card */
+  .task-card {
+    background: #fff;
+    border: 1.5px solid #ccc;
+    margin-bottom: 8px;
+    padding: 14px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    clip-path: polygon(0.2% 1.5%, 99.5% 0.3%, 99.8% 98%, 0.3% 99%);
+    position: relative;
+    cursor: pointer;
+    transition: background 0.1s;
+  }
+  .task-card:active { background: #f5f5f5; }
+
+  .task-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .task-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: var(--ink);
+    line-height: 1.35;
+  }
+
+  /* Notification icon */
+  .notif-icon {
+    flex-shrink: 0;
+  }
+  .notif-icon svg {
+    width: 16px;
+    height: 16px;
+    stroke: var(--gray-mid);
+    stroke-width: 1.8;
+    fill: none;
+  }
+
+  /* Status icon */
+  .status-icon {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .status-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* ── OPERATION CARD ── */
+  .op-card {
+    background: var(--blue-tint);
+    border: 2px solid var(--blue);
+    margin: 12px 0;
+    padding: 16px;
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    cursor: pointer;
+    clip-path: polygon(0.3% 1%, 99.5% 0.2%, 99.8% 99%, 0.2% 98.8%);
+    transition: background 0.1s;
+  }
+  .op-card:active { background: var(--blue-light); }
+
+  .op-date-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 56px;
+    padding-right: 14px;
+  }
+  .op-day-num {
+    font-family: 'Caveat', cursive;
+    font-size: 38px;
+    font-weight: 700;
+    color: var(--blue);
+    line-height: 1;
+  }
+  .op-month {
+    font-family: 'Caveat', cursive;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--blue);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 2px;
+  }
+
+  .op-divider {
+    width: 1.5px;
+    background: var(--blue);
+    margin-right: 14px;
+    align-self: stretch;
+    min-height: 60px;
+    clip-path: polygon(0 0.5%, 100% 0%, 100% 99%, 0 99.5%);
+  }
+
+  .op-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+  }
+  .op-time {
+    font-family: 'Caveat', cursive;
+    font-size: 13px;
+    color: var(--blue);
+    font-weight: 600;
+  }
+  .op-title-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--blue);
+    line-height: 1.3;
+  }
+  .op-location {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 2px;
+  }
+  .op-location svg {
+    width: 12px;
+    height: 12px;
+    stroke: var(--blue);
+    stroke-width: 2;
+    fill: none;
+    flex-shrink: 0;
+  }
+  .op-location-text {
+    font-family: 'Caveat', cursive;
+    font-size: 13px;
+    color: var(--blue);
+  }
+
+  /* Tab bar */
+  .tab-bar {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 390px;
+    background: var(--white);
+    border-top: 1.5px solid #ccc;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 8px 0 12px;
+    z-index: 100;
+  }
+
+  .tab-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    font-family: 'Caveat', cursive;
+    font-size: 11px;
+    font-weight: 600;
+    color: #999;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    padding: 0 8px;
+  }
+  .tab-item.active { color: var(--blue); }
+  .tab-item svg {
+    width: 22px;
+    height: 22px;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .tab-item.active svg { stroke: var(--blue); }
+
+  /* ══════════════════════════════════════
+     SCREEN 3 — OPERATION DETAIL
+  ══════════════════════════════════════ */
+  #screen-op-detail {
+    background: var(--white);
+    flex-direction: column;
+  }
+
+  .detail-header {
+    padding: 52px 20px 20px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .detail-back {
+    font-family: 'Caveat', cursive;
+    font-size: 26px;
+    color: var(--ink);
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+  }
+  .detail-back svg {
+    width: 22px;
+    height: 22px;
+    stroke: var(--ink);
+    stroke-width: 2.5;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .detail-title {
+    font-family: 'Caveat', cursive;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.2;
+  }
+
+  .detail-body {
+    padding: 24px 20px;
+    flex: 1;
+    overflow-y: auto;
+  }
+
+  .detail-section {
+    margin-bottom: 28px;
+  }
+
+  .detail-section-label {
+    font-family: 'Caveat', cursive;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--gray-mid);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+
+  .detail-section-value {
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+
+  .map-placeholder {
+    width: 100%;
+    height: 180px;
+    border: 1.5px solid #bbb;
+    background: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 8px;
+    position: relative;
+    clip-path: polygon(0.3% 1%, 99.5% 0.5%, 99.8% 99%, 0.3% 98.5%);
+  }
+  .map-placeholder-label {
+    font-family: 'Caveat', cursive;
+    font-size: 16px;
+    color: var(--gray-mid);
+    font-weight: 600;
+  }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-overlay.open { display: flex; }
+
+  .modal-box {
+    background: var(--white);
+    padding: 28px 24px;
+    width: 280px;
+    position: relative;
+    clip-path: polygon(0.5% 1%, 99% 0.3%, 99.5% 98.5%, 0.8% 99.5%);
+    border: 1.5px solid var(--ink);
+  }
+
+  .modal-title {
+    font-family: 'Caveat', cursive;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--ink);
+    text-align: center;
+    margin-bottom: 24px;
+    line-height: 1.3;
+  }
+
+  .modal-btns {
+    display: flex;
+    gap: 12px;
+  }
+
+  .modal-btn {
+    flex: 1;
+    padding: 10px;
+    font-family: 'Caveat', cursive;
+    font-size: 17px;
+    font-weight: 700;
+    cursor: pointer;
+    border: 1.5px solid var(--ink);
+    background: var(--white);
+    color: var(--ink);
+    clip-path: polygon(0.8% 3%, 98.5% 0.5%, 99% 96%, 1% 99%);
+    transition: background 0.15s, color 0.15s;
+  }
+  .modal-btn.primary {
+    background: var(--blue);
+    color: #fff;
+    border-color: var(--blue);
+  }
+  .modal-btn:active { opacity: 0.8; }
+
+  /* ── GRADIENT OVERLAY (task scroll bg) ── */
+  .gradient-bg {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .task-scroll-inner { position: relative; z-index: 1; }
+
+  /* Empty day message */
+  .empty-day {
+    font-family: 'Caveat', cursive;
+    font-size: 14px;
+    color: #ccc;
+    padding: 6px 0 10px;
+    font-style: italic;
+  }
+
+  /* Hidden */
+  .hidden { display: none !important; }
+
+</style>
+</head>
+<body>
+<div id="app">
+
+  <!-- ══ SCREEN 1: START ══ -->
+  <div id="screen-start" class="screen active">
+    <p class="start-title">Angiv patientoplysninger</p>
+
+    <div class="start-form-wrap">
+
+      <div class="form-group">
+        <label class="form-label" for="days-input">Dage til operation</label>
+        <input class="sketch-input" type="number" id="days-input" min="1" max="30" value="5" />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Sundhedskompetence</label>
+        <div class="toggle-wrap">
+          <button class="toggle-btn active" id="toggle-high" onclick="setLiteracy('high')">Høj</button>
+          <button class="toggle-btn" id="toggle-low" onclick="setLiteracy('low')">Lav</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="checkbox-wrap">
+          <input class="sketch-checkbox" type="checkbox" id="smoker-check" />
+          <span class="checkbox-label">Patienten ryger</span>
+        </label>
+      </div>
+
+    </div>
+
+    <button class="start-btn" onclick="startPrototype()">Personaliser opgaveliste</button>
+  </div>
+
+  <!-- ══ SCREEN 2: TASK LIST ══ -->
+  <div id="screen-tasks" class="screen">
+    <!-- Title bar -->
+    <div class="title-bar">
+      <div class="title-bar-row">
+        <button class="back-btn" onclick="confirmRestart()">
+          <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <span class="screen-title">Knæoperation – menisk</span>
+      </div>
+      <div class="filter-row">
+        <button class="filter-pill active" id="pill-alle" onclick="setFilter('alle')">Alle</button>
+        <button class="filter-pill" id="pill-idag" onclick="setFilter('idag')">I dag</button>
+        <button class="filter-pill" id="pill-overskredet" onclick="setFilter('overskredet')">Overskredet</button>
+      </div>
+    </div>
+
+    <!-- Task list -->
+    <div class="task-scroll" id="task-scroll">
+      <div class="gradient-bg" id="gradient-bg"></div>
+      <div class="task-scroll-inner" id="task-list-inner">
+        <!-- populated by JS -->
+      </div>
+    </div>
+
+    <!-- Tab bar -->
+    <div class="tab-bar">
+      <div class="tab-item" onclick="">
+        <!-- Clock icon -->
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+        AFTALER
+      </div>
+      <div class="tab-item active">
+        <!-- Tasks icon -->
+        <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><polyline points="3 6 4 7 6 5"/><polyline points="3 12 4 13 6 11"/><polyline points="3 18 4 19 6 17"/></svg>
+        OPGAVER
+      </div>
+      <div class="tab-item">
+        <!-- Info icon -->
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="8" stroke-width="2.5"/><line x1="12" y1="12" x2="12" y2="16"/></svg>
+        INFO
+      </div>
+      <div class="tab-item">
+        <!-- Message icon -->
+        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        BESKEDER
+      </div>
+      <div class="tab-item">
+        <!-- Menu icon -->
+        <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        MENU
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SCREEN 3: OPERATION DETAIL ══ -->
+  <div id="screen-op-detail" class="screen">
+    <div class="detail-header">
+      <button class="detail-back" onclick="closeOpDetail()">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <div class="detail-title">Operationsdag: Operation i knæ</div>
+    </div>
+
+    <div class="detail-body">
+      <div class="detail-section">
+        <div class="detail-section-label">Dato</div>
+        <div class="detail-section-value" id="detail-date">Tirsdag 23. december<br>kl. 08:00</div>
+      </div>
+      <div class="detail-section">
+        <div class="detail-section-label">Adresse</div>
+        <div class="detail-section-value">Nordsjællands Hospital,<br>Ortopædkirurgisk Afdeling</div>
+        <div class="map-placeholder">
+          <span class="map-placeholder-label">[Kort]</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab bar (same) -->
+    <div class="tab-bar">
+      <div class="tab-item">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+        AFTALER
+      </div>
+      <div class="tab-item active">
+        <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><polyline points="3 6 4 7 6 5"/><polyline points="3 12 4 13 6 11"/><polyline points="3 18 4 19 6 17"/></svg>
+        OPGAVER
+      </div>
+      <div class="tab-item">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="8" stroke-width="2.5"/><line x1="12" y1="12" x2="12" y2="16"/></svg>
+        INFO
+      </div>
+      <div class="tab-item">
+        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        BESKEDER
+      </div>
+      <div class="tab-item">
+        <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        MENU
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ RESTART MODAL ══ -->
+  <div class="modal-overlay" id="restart-modal">
+    <div class="modal-box">
+      <div class="modal-title">Genstart prototypen?</div>
+      <div class="modal-btns">
+        <button class="modal-btn primary" onclick="doRestart()">Ja</button>
+        <button class="modal-btn" onclick="closeModal()">Nej</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ══════════════════════════════════════
+//  STATE
+// ══════════════════════════════════════
+let state = {
+  daysToOp: 5,
+  literacy: 'high',  // 'high' | 'low'
+  smoker: false,
+  filter: 'alle',
+  tasks: []
+};
+
+// ══════════════════════════════════════
+//  TASK DEFINITIONS
+// ══════════════════════════════════════
+// section, hhlExclude, smokerOnly, hhlTitle, lhlTitle, notification, timing
+const TASK_DEFS = [
+  { section: 'A', hhlExclude: false, smokerOnly: false, hhlTitle: 'Velkommen',                          lhlTitle: 'Hej!',                         notification: false, timing: 'pre' },
+  { section: 'A', hhlExclude: true,  smokerOnly: false, hhlTitle: null,                                 lhlTitle: 'Gode råd til dig',             notification: false, timing: 'pre' },
+  { section: 'B', hhlExclude: false, smokerOnly: false, hhlTitle: 'Om operationen',                     lhlTitle: 'Hvad sker der?',               notification: false, timing: 'pre' },
+  { section: 'B', hhlExclude: false, smokerOnly: false, hhlTitle: 'Bedøvelse',                          lhlTitle: 'Du sover under operationen',   notification: false, timing: 'pre' },
+  { section: 'C', hhlExclude: false, smokerOnly: false, hhlTitle: 'Gør dig klar',                       lhlTitle: 'Gør dig klar',                 notification: false, timing: 'pre' },
+  { section: 'D', hhlExclude: false, smokerOnly: true,  hhlTitle: 'Rygning påvirker din operation',    lhlTitle: 'Rygning påvirker din operation',notification: false, timing: 'pre' },
+  { section: 'E', hhlExclude: false, smokerOnly: false, hhlTitle: 'Nyttig info om operationsdagen',    lhlTitle: 'Gode råd inden operationen',   notification: false, timing: 'pre' },
+  { section: 'F', hhlExclude: false, smokerOnly: false, hhlTitle: 'Start fastekuren!',                 lhlTitle: 'Start fastekuren!',            notification: true,  timing: 'pre-last' },
+  { section: 'G', hhlExclude: true,  smokerOnly: false, hhlTitle: null,                                 lhlTitle: 'Efter operationen',            notification: false, timing: 'post' },
+  { section: 'H', hhlExclude: false, smokerOnly: false, hhlTitle: 'Pas på dit knæ',                    lhlTitle: 'Pas på dit knæ',               notification: false, timing: 'post' },
+];
+
+// Section groups for distribution
+// Pre-op sections are grouped: A+B (early), C+D (mid), E+F (late/last-day)
+const SECTION_GROUPS = ['A', 'B', 'C', 'D', 'E', 'F'];
+const GROUP_EARLY  = ['A', 'B'];
+const GROUP_MID    = ['C', 'D'];
+const GROUP_LATE   = ['E', 'F'];
+
+// ══════════════════════════════════════
+//  ALGORITHM
+// ══════════════════════════════════════
+function generateTasks(daysToOp, literacy, smoker) {
+  const isHHL = literacy === 'high';
+
+  // Filter raw task defs based on patient characteristics
+  const eligible = TASK_DEFS.filter(t => {
+    if (t.smokerOnly && !smoker) return false;
+    if (t.hhlExclude && isHHL) return false;
+    return true;
+  }).map((t, i) => ({
+    id: i,
+    section: t.section,
+    title: isHHL ? t.hhlTitle : t.lhlTitle,
+    notification: t.notification,
+    timing: t.timing,
+  }));
+
+  const preTasks  = eligible.filter(t => t.timing === 'pre');
+  const lateTasks = eligible.filter(t => t.timing === 'pre-last');
+  const postTasks = eligible.filter(t => t.timing === 'post');
+
+  // Split pre-tasks into 3 groups by section
+  const earlyTasks = preTasks.filter(t => GROUP_EARLY.includes(t.section));
+  const midTasks   = preTasks.filter(t => GROUP_MID.includes(t.section));
+  // lateTasks is already filtered above (section E timing=pre, section F timing=pre-last)
+  const sectionETasks = preTasks.filter(t => t.section === 'E');
+  const allLateTasks  = [...sectionETasks, ...lateTasks];
+
+  // Assign tasks to day numbers
+  // N = daysToOp pre-op days, then operation day = N+1 (but we call it daysToOp+1)
+  // post-op days continue from daysToOp+2 onward
+
+  let taskList = []; // { dayNum, task }
+
+  if (daysToOp === 1) {
+    // Everything in Day 1
+    [...earlyTasks, ...midTasks, ...allLateTasks].forEach(t => taskList.push({ dayNum: 1, task: t }));
+  } else if (daysToOp === 2) {
+    earlyTasks.forEach(t => taskList.push({ dayNum: 1, task: t }));
+    midTasks.forEach(t => taskList.push({ dayNum: 1, task: t }));
+    allLateTasks.forEach(t => taskList.push({ dayNum: 2, task: t }));
+  } else {
+    // 3+ days: distribute early to day 1, late to day N, mid spread in between
+    // Spread across days: early → day 1, mid → day ~middle, late → day N
+    const earlyDay = 1;
+    const lateDay  = daysToOp;
+    const midDay   = Math.round(daysToOp / 2);
+
+    earlyTasks.forEach(t => taskList.push({ dayNum: earlyDay, task: t }));
+    midTasks.forEach(t   => taskList.push({ dayNum: midDay,   task: t }));
+    allLateTasks.forEach(t => taskList.push({ dayNum: lateDay, task: t }));
+  }
+
+  // Operation day
+  const opDayNum = daysToOp + 1;
+
+  // Post-op days: start at opDayNum + 1
+  postTasks.forEach((t, i) => {
+    taskList.push({ dayNum: opDayNum + 1 + i, task: t });
+  });
+
+  return { taskList, opDayNum, daysToOp };
+}
+
+// ══════════════════════════════════════
+//  RENDER
+// ══════════════════════════════════════
+function renderTasks(filter) {
+  const { taskList, opDayNum, daysToOp } = state.result;
+  const container = document.getElementById('task-list-inner');
+  container.innerHTML = '';
+
+  // Determine which tasks are "completed" for Overskredet filter
+  // First task ever is the only completed one
+  const firstTask = taskList[0];
+
+  // Build day buckets for all day numbers that appear
+  const allDayNums = new Set(taskList.map(t => t.dayNum));
+  // Also include all days 1..daysToOp even if empty
+  for (let d = 1; d <= daysToOp; d++) allDayNums.add(d);
+  // Add op day
+  allDayNums.add(opDayNum);
+  // Post-op days already in taskList
+
+  const sortedDays = [...allDayNums].sort((a, b) => a - b);
+
+  // Total days including post-op
+  const totalDays = sortedDays[sortedDays.length - 1];
+
+  // Global task counter for "first task" detection
+  let globalTaskIndex = 0;
+  let renderedAnything = false;
+
+  sortedDays.forEach(dayNum => {
+    if (dayNum === opDayNum) {
+      // ── OPERATION CARD ──
+      if (filter === 'idag' || filter === 'overskredet') return; // hide in filters
+      const opCard = document.createElement('div');
+      opCard.className = 'op-card';
+      opCard.onclick = openOpDetail;
+      // Day header above op card
+      const opDayHeader = document.createElement('div');
+      opDayHeader.className = 'day-header';
+      opDayHeader.textContent = `Dag ${dayNum} — Operationsdagen`;
+      container.appendChild(opDayHeader);
+
+      opCard.innerHTML = `
+        <div class="op-date-col">
+          <div class="op-day-num">${dayNum}</div>
+          <div class="op-month">DAG</div>
+        </div>
+        <div class="op-divider"></div>
+        <div class="op-info">
+          <div class="op-time">kl. 08:00</div>
+          <div class="op-title-text">Operationsdag: Operation i knæ</div>
+          <div class="op-location">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span class="op-location-text">Nordsjællands Hospital</span>
+          </div>
+        </div>
+      `;
+      container.appendChild(opCard);
+      renderedAnything = true;
+      return;
+    }
+
+    // ── DAY GROUP ──
+    const dayTasks = taskList.filter(t => t.dayNum === dayNum);
+
+    // Filter tasks based on active filter
+    let visibleTasks = dayTasks;
+    if (filter === 'idag') {
+      if (dayNum !== 1) return; // only show day 1
+    }
+    if (filter === 'overskredet') {
+      visibleTasks = dayTasks.filter(t => taskList.indexOf(t) !== 0);
+      if (visibleTasks.length === 0) return;
+    }
+
+    const isPostOp = dayNum > opDayNum;
+    const dayLabel = isPostOp
+      ? `Dag ${dayNum} — efter operation`
+      : `Dag ${dayNum}`;
+
+    // Day header
+    const dayGroup = document.createElement('div');
+    dayGroup.className = 'day-group';
+
+    const header = document.createElement('div');
+    header.className = 'day-header';
+    header.textContent = dayLabel;
+    dayGroup.appendChild(header);
+
+    if (dayTasks.length === 0 && filter === 'alle') {
+      const empty = document.createElement('div');
+      empty.className = 'empty-day';
+      empty.textContent = 'Ingen opgaver denne dag';
+      dayGroup.appendChild(empty);
+    }
+
+    // Render tasks for this day
+    visibleTasks.forEach(({ task }) => {
+      const isCompleted = taskList.findIndex(t => t.task === task) === 0;
+
+      const card = document.createElement('div');
+      card.className = 'task-card sketch-border';
+
+      const left = document.createElement('div');
+      left.className = 'task-left';
+
+      if (task.notification) {
+        const notifIcon = document.createElement('div');
+        notifIcon.className = 'notif-icon';
+        notifIcon.innerHTML = `<svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>`;
+        left.appendChild(notifIcon);
+      }
+
+      const title = document.createElement('div');
+      title.className = 'task-title';
+      title.textContent = task.title;
+      left.appendChild(title);
+
+      const statusIcon = document.createElement('div');
+      statusIcon.className = 'status-icon';
+      if (isCompleted) {
+        statusIcon.innerHTML = `<svg viewBox="0 0 24 24" stroke="#999" stroke-width="2" fill="none"><polyline points="20 6 9 17 4 12"/></svg>`;
+      } else {
+        statusIcon.innerHTML = `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke="#c0392b" stroke-width="1.8" fill="none"/></svg>`;
+      }
+
+      card.appendChild(left);
+      card.appendChild(statusIcon);
+      dayGroup.appendChild(card);
+      renderedAnything = true;
+    });
+
+    container.appendChild(dayGroup);
+  });
+
+  // Apply gradient to scroll container
+  applyGradient(opDayNum, totalDays);
+}
+
+function applyGradient(opDayNum, totalDays) {
+  const scroll = document.getElementById('task-scroll');
+  // Simple blue tint gradient peaking at middle
+  scroll.style.background = `linear-gradient(to bottom,
+    #ffffff 0%,
+    rgba(20,40,240,0.04) 40%,
+    rgba(20,40,240,0.09) 55%,
+    rgba(20,40,240,0.04) 70%,
+    #ffffff 100%
+  )`;
+}
+
+// ══════════════════════════════════════
+//  NAVIGATION
+// ══════════════════════════════════════
+function setLiteracy(val) {
+  state.literacy = val;
+  document.getElementById('toggle-high').classList.toggle('active', val === 'high');
+  document.getElementById('toggle-low').classList.toggle('active', val === 'low');
+}
+
+function startPrototype() {
+  const days = parseInt(document.getElementById('days-input').value, 10) || 5;
+  const smoker = document.getElementById('smoker-check').checked;
+
+  state.daysToOp = Math.max(1, Math.min(30, days));
+  state.smoker = smoker;
+  state.filter = 'alle';
+  state.result = generateTasks(state.daysToOp, state.literacy, state.smoker);
+
+  showScreen('screen-tasks');
+  setFilter('alle');
+}
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  // Scroll to top
+  const scroll = document.getElementById('task-scroll');
+  if (scroll) scroll.scrollTop = 0;
+}
+
+function setFilter(filter) {
+  state.filter = filter;
+  ['alle', 'idag', 'overskredet'].forEach(f => {
+    document.getElementById('pill-' + f).classList.toggle('active', f === filter);
+  });
+  renderTasks(filter);
+}
+
+function confirmRestart() {
+  document.getElementById('restart-modal').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('restart-modal').classList.remove('open');
+}
+
+function doRestart() {
+  closeModal();
+  showScreen('screen-start');
+}
+
+function openOpDetail() {
+  showScreen('screen-op-detail');
+}
+
+function closeOpDetail() {
+  showScreen('screen-tasks');
+}
+
+// Init
+setLiteracy('high');
+</script>
+</body>
+</html>
