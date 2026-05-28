@@ -9,11 +9,11 @@ This is the visual style guide for Claude to follow for the Emento-Tasks project
 - Imagine Claude is ‘sketching’ with code, as if drawing initial ideas on paper
 
 ### Colors
-- Monochrome: black, white and a feature color
-- Shading and tinting is allowed to create subtle depth
-- Black and white bones: black, white and shades/tints are the majority colors. Claude should first make all elements in black and white (again, like sketching with an ink pen).
+- Primarily monochrome (black and white, tints of grey) with a few additional colors to round out the look
+- Claude should use tints of purple (# c09dff) for subtle background color
 - Feature color: Blue (HEX # 1428F0) is used to showcase the main aspects of the prototype. Francesca will identify what aspects to feature in the Design Brief. Claude can use tints of the feature color - anything that is ‘active’ needs to be the full color.
 - Action highlight: To communicate changes or transitions in the prototype, Claude can use a bright, high-contrast pink (HEX #FF6B6B) where indicated by Francesca in the Design Brief markdown file.
+- Success highlight: To communicate that a task has been completed (the check mark), Claude should use a green that complements the other colors in the prototype
 
 ### Icons
 - Claude can build very simple icons, no elaborate details

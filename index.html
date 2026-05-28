@@ -5,17 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Emento – Opgaveliste Prototype</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Inter:wght@400;500;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
 
   :root {
+    --font-ui: 'DM Sans', sans-serif;
     --blue: #1428F0;
     --blue-tint: rgba(20, 40, 240, 0.08);
     --blue-light: rgba(20, 40, 240, 0.18);
     --blue-mid: rgba(20, 40, 240, 0.25);
-    --gray-bg: #e2e2e2;
+    --purple: #c09dff;
+    --gray-bg: #f5f0ff;
     --gray-line: #bbb;
     --gray-dark: #444;
     --gray-mid: #888;
+    --green: #2bc46a;
     --ink: #1a1a1a;
     --white: #fafaf8;
     --red: #c0392b;
@@ -29,12 +32,12 @@
   }
 
   body {
-    background: #c8c8c8;
+    background: #fff;
     display: flex;
     justify-content: center;
     align-items: flex-start;
     min-height: 100vh;
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-ui);
   }
 
   /* Phone shell */
@@ -49,19 +52,21 @@
     flex-direction: column;
   }
 
-  /* ── SKETCH FILTER ── */
-  .sketch-border {
-    position: relative;
-  }
+  /* ── SKETCH BORDERS — right-angle open corners + per-card SVG wiggle ── */
+  .sketch-border { position: relative; }
   .sketch-border::before {
     content: '';
     position: absolute;
     inset: 0;
-    border: 1.5px solid var(--ink);
+    border-style: solid;
+    border-color: var(--ink);
+    border-top-width: var(--bw-t, 1.5px);
+    border-right-width: var(--bw-r, 1.5px);
+    border-bottom-width: var(--bw-b, 1.5px);
+    border-left-width: var(--bw-l, 1.5px);
     pointer-events: none;
-    clip-path: polygon(
-      0.3% 1%, 99% 0.2%, 99.5% 99%, 0.5% 98.8%
-    );
+    clip-path: polygon(1.5% 0%, 98.5% 0%, 98.5% 6%, 100% 6%, 100% 94%, 98.5% 94%, 98.5% 100%, 1.5% 100%, 1.5% 94%, 0% 94%, 0% 6%, 1.5% 6%);
+    filter: var(--sketch-filter, none);
   }
 
   /* ── SCREENS ── */
@@ -89,7 +94,7 @@
   }
 
   .start-title {
-    font-family: 'Caveat', cursive;
+    font-family: var(--font-ui);
     font-size: 22px;
     font-weight: 700;
     color: var(--ink);
@@ -108,7 +113,7 @@
   }
 
   .form-label {
-    font-family: 'Caveat', cursive;
+    font-family: var(--font-ui);
     font-size: 15px;
     color: var(--gray-dark);
     display: block;
@@ -120,7 +125,7 @@
   .sketch-input {
     width: 80px;
     padding: 6px 10px;
-    font-family: 'Caveat', cursive;
+    font-family: var(--font-ui);
     font-size: 18px;
     color: var(--ink);
     background: var(--white);
@@ -140,7 +145,7 @@
     gap: 0;
   }
   .toggle-btn {
-    font-family: 'Caveat', cursive;
+    font-family: var(--font-ui);
     font-size: 15px;
     font-weight: 600;
     padding: 6px 16px;
@@ -177,7 +182,7 @@
   }
   .sketch-checkbox:checked::after {
     content: '✕';
-    font-family: 'Caveat', cursive;
+    font-family: var(--font-ui);
     font-size: 16px;
     color: var(--blue);
     position: absolute;
@@ -186,7 +191,7 @@
     font-weight: 700;
   }
   .checkbox-label {
-    font-family: 'Caveat', cursive;
+    font-family: var(--font-ui);
     font-size: 15px;
     color: var(--gray-dark);
     font-weight: 600;
@@ -198,7 +203,7 @@
     width: 100%;
     max-width: 280px;
     padding: 14px 20px;
-    font-family: 'Caveat', cursive;
+    font-family: var(--font-ui);
     font-size: 18px;
     font-weight: 700;
     color: #fff;
@@ -207,7 +212,6 @@
     cursor: pointer;
     letter-spacing: 0.3px;
     position: relative;
-    clip-path: polygon(0.5% 2%, 99% 0.3%, 99.5% 97%, 1% 99%);
     transition: opacity 0.15s;
   }
   .start-btn:active { opacity: 0.85; }
@@ -236,7 +240,7 @@
   }
 
   .back-btn {
-    font-family: 'Caveat', cursive;
+    font-family: var(--font-ui);
     font-size: 26px;
     font-weight: 700;
     color: var(--blue);
@@ -259,7 +263,7 @@
   }
 
   .screen-title {
-    font-family: 'Caveat', cursive;
+    font-family: var(--font-ui);
     font-size: 22px;
     font-weight: 700;
     color: var(--ink);
@@ -272,7 +276,7 @@
   }
 
   .filter-pill {
-    font-family: 'Caveat', cursive;
+    font-family: var(--font-ui);
     font-size: 15px;
     font-weight: 600;
     padding: 6px 16px;
@@ -281,7 +285,6 @@
     color: var(--blue);
     cursor: pointer;
     transition: background 0.15s, color 0.15s;
-    clip-path: polygon(0.8% 3%, 98.5% 0.5%, 99% 96%, 1% 99%);
   }
   .filter-pill.active {
     background: var(--blue);
@@ -307,7 +310,7 @@
   }
 
   .day-header {
-    font-family: 'Caveat', cursive;
+    font-family: var(--font-ui);
     font-size: 13px;
     font-weight: 600;
     color: var(--gray-mid);
@@ -332,19 +335,18 @@
   /* Task card */
   .task-card {
     background: #fff;
-    border: 1.5px solid #ccc;
     margin-bottom: 8px;
     padding: 14px 14px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 10px;
-    clip-path: polygon(0.2% 1.5%, 99.5% 0.3%, 99.8% 98%, 0.3% 99%);
+    clip-path: polygon(1.5% 0%, 98.5% 0%, 98.5% 6%, 100% 6%, 100% 94%, 98.5% 94%, 98.5% 100%, 1.5% 100%, 1.5% 94%, 0% 94%, 0% 6%, 1.5% 6%);
     position: relative;
     cursor: pointer;
     transition: background 0.1s;
   }
-  .task-card:active { background: #f5f5f5; }
+  .task-card:active { background: #f5f0ff; }
 
   .task-left {
     display: flex;
@@ -355,7 +357,7 @@
   }
 
   .task-title {
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-ui);
     font-size: 14px;
     color: var(--ink);
     line-height: 1.35;
@@ -364,11 +366,14 @@
   /* Notification icon */
   .notif-icon {
     flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    padding-top: 2px;
   }
   .notif-icon svg {
     width: 16px;
     height: 16px;
-    stroke: var(--gray-mid);
+    stroke: #8b6ed4;
     stroke-width: 1.8;
     fill: none;
   }
@@ -396,11 +401,8 @@
     display: flex;
     align-items: stretch;
     gap: 0;
-    cursor: pointer;
-    clip-path: polygon(0.3% 1%, 99.5% 0.2%, 99.8% 99%, 0.2% 98.8%);
-    transition: background 0.1s;
+    clip-path: polygon(1.5% 0%, 98.5% 0%, 98.5% 3.5%, 100% 3.5%, 100% 96.5%, 98.5% 96.5%, 98.5% 100%, 1.5% 100%, 1.5% 96.5%, 0% 96.5%, 0% 3.5%, 1.5% 3.5%);
   }
-  .op-card:active { background: var(--blue-light); }
 
   .op-date-col {
     display: flex;
@@ -411,14 +413,14 @@
     padding-right: 14px;
   }
   .op-day-num {
-    font-family: 'Caveat', cursive;
+    font-family: var(--font-ui);
     font-size: 38px;
     font-weight: 700;
     color: var(--blue);
     line-height: 1;
   }
   .op-month {
-    font-family: 'Caveat', cursive;
+    font-family: var(--font-ui);
     font-size: 13px;
     font-weight: 600;
     color: var(--blue);
@@ -444,13 +446,13 @@
     gap: 4px;
   }
   .op-time {
-    font-family: 'Caveat', cursive;
+    font-family: var(--font-ui);
     font-size: 13px;
     color: var(--blue);
     font-weight: 600;
   }
   .op-title-text {
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-ui);
     font-size: 14px;
     font-weight: 600;
     color: var(--blue);
@@ -471,7 +473,7 @@
     flex-shrink: 0;
   }
   .op-location-text {
-    font-family: 'Caveat', cursive;
+    font-family: var(--font-ui);
     font-size: 13px;
     color: var(--blue);
   }
@@ -485,7 +487,7 @@
     width: 100%;
     max-width: 390px;
     background: var(--white);
-    border-top: 1.5px solid #ccc;
+    border-top: 1.5px solid var(--gray-line);
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -498,7 +500,7 @@
     flex-direction: column;
     align-items: center;
     gap: 4px;
-    font-family: 'Caveat', cursive;
+    font-family: var(--font-ui);
     font-size: 11px;
     font-weight: 600;
     color: #999;
@@ -528,11 +530,11 @@
 
   .detail-header {
     padding: 52px 20px 20px;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid var(--gray-line);
   }
 
   .detail-back {
-    font-family: 'Caveat', cursive;
+    font-family: var(--font-ui);
     font-size: 26px;
     color: var(--ink);
     cursor: pointer;
@@ -554,7 +556,7 @@
   }
 
   .detail-title {
-    font-family: 'Caveat', cursive;
+    font-family: var(--font-ui);
     font-size: 26px;
     font-weight: 700;
     color: var(--ink);
@@ -572,7 +574,7 @@
   }
 
   .detail-section-label {
-    font-family: 'Caveat', cursive;
+    font-family: var(--font-ui);
     font-size: 13px;
     font-weight: 700;
     color: var(--gray-mid);
@@ -582,7 +584,7 @@
   }
 
   .detail-section-value {
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-ui);
     font-size: 15px;
     color: var(--ink);
     line-height: 1.5;
@@ -591,17 +593,17 @@
   .map-placeholder {
     width: 100%;
     height: 180px;
-    border: 1.5px solid #bbb;
-    background: #f0f0f0;
+    border: 1.5px solid var(--gray-line);
+    background: rgba(192, 157, 255, 0.08);
     display: flex;
     align-items: center;
     justify-content: center;
     margin-top: 8px;
     position: relative;
-    clip-path: polygon(0.3% 1%, 99.5% 0.5%, 99.8% 99%, 0.3% 98.5%);
+    clip-path: polygon(1.5% 0%, 98.5% 0%, 98.5% 1.5%, 100% 1.5%, 100% 98.5%, 98.5% 98.5%, 98.5% 100%, 1.5% 100%, 1.5% 98.5%, 0% 98.5%, 0% 1.5%, 1.5% 1.5%);
   }
   .map-placeholder-label {
-    font-family: 'Caveat', cursive;
+    font-family: var(--font-ui);
     font-size: 16px;
     color: var(--gray-mid);
     font-weight: 600;
@@ -624,12 +626,12 @@
     padding: 28px 24px;
     width: 280px;
     position: relative;
-    clip-path: polygon(0.5% 1%, 99% 0.3%, 99.5% 98.5%, 0.8% 99.5%);
+    clip-path: polygon(1.5% 0%, 98.5% 0%, 98.5% 2.5%, 100% 2.5%, 100% 97.5%, 98.5% 97.5%, 98.5% 100%, 1.5% 100%, 1.5% 97.5%, 0% 97.5%, 0% 2.5%, 1.5% 2.5%);
     border: 1.5px solid var(--ink);
   }
 
   .modal-title {
-    font-family: 'Caveat', cursive;
+    font-family: var(--font-ui);
     font-size: 20px;
     font-weight: 700;
     color: var(--ink);
@@ -646,14 +648,13 @@
   .modal-btn {
     flex: 1;
     padding: 10px;
-    font-family: 'Caveat', cursive;
+    font-family: var(--font-ui);
     font-size: 17px;
     font-weight: 700;
     cursor: pointer;
     border: 1.5px solid var(--ink);
     background: var(--white);
     color: var(--ink);
-    clip-path: polygon(0.8% 3%, 98.5% 0.5%, 99% 96%, 1% 99%);
     transition: background 0.15s, color 0.15s;
   }
   .modal-btn.primary {
@@ -674,9 +675,9 @@
 
   /* Empty day message */
   .empty-day {
-    font-family: 'Caveat', cursive;
+    font-family: var(--font-ui);
     font-size: 14px;
-    color: #ccc;
+    color: var(--gray-mid);
     padding: 6px 0 10px;
     font-style: italic;
   }
@@ -688,6 +689,11 @@
 </head>
 <body>
 <div id="app">
+
+  <!-- hidden SVG filter defs for per-card sketch wiggle -->
+  <svg width="0" height="0" aria-hidden="true" style="position:absolute;overflow:hidden">
+    <defs id="sketch-defs"></defs>
+  </svg>
 
   <!-- ══ SCREEN 1: START ══ -->
   <div id="screen-start" class="screen active">
@@ -849,6 +855,44 @@ let state = {
 };
 
 // ══════════════════════════════════════
+//  SKETCH FILTER GENERATOR
+// ══════════════════════════════════════
+let _sketchN = 0;
+function sketchFilter() {
+  const id = `sk${++_sketchN}`;
+  const seed  = Math.floor(Math.random() * 200);
+  const scale = (0.6 + Math.random() * 0.6).toFixed(1);
+  const freq  = (0.028 + Math.random() * 0.018).toFixed(3);
+  document.getElementById('sketch-defs').insertAdjacentHTML('beforeend',
+    `<filter id="${id}" x="-4%" y="-12%" width="108%" height="124%">` +
+    `<feTurbulence type="fractalNoise" baseFrequency="${freq}" numOctaves="3" seed="${seed}"/>` +
+    `<feDisplacementMap in="SourceGraphic" scale="${scale}" xChannelSelector="R" yChannelSelector="G"/>` +
+    `</filter>`
+  );
+  return id;
+}
+
+// ══════════════════════════════════════
+//  DATE HELPERS
+// ══════════════════════════════════════
+const DAY_ABBR = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const MON_ABBR = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+// today at midnight, captured once on load
+const TODAY = new Date();
+TODAY.setHours(0, 0, 0, 0);
+
+function journeyDate(dayNum) {
+  const d = new Date(TODAY);
+  d.setDate(d.getDate() + (dayNum - 1));
+  return d;
+}
+
+function formatDate(d) {
+  return `${DAY_ABBR[d.getDay()]}.${d.getDate()}.${MON_ABBR[d.getMonth()]}.${d.getFullYear()}`;
+}
+
+// ══════════════════════════════════════
 //  TASK DEFINITIONS
 // ══════════════════════════════════════
 // section, hhlExclude, smokerOnly, hhlTitle, lhlTitle, notification, timing
@@ -861,16 +905,16 @@ const TASK_DEFS = [
   { section: 'D', hhlExclude: false, smokerOnly: true,  hhlTitle: 'Rygning påvirker din operation',    lhlTitle: 'Rygning påvirker din operation',notification: false, timing: 'pre' },
   { section: 'E', hhlExclude: false, smokerOnly: false, hhlTitle: 'Nyttig info om operationsdagen',    lhlTitle: 'Gode råd inden operationen',   notification: false, timing: 'pre' },
   { section: 'F', hhlExclude: false, smokerOnly: false, hhlTitle: 'Start fastekuren!',                 lhlTitle: 'Start fastekuren!',            notification: true,  timing: 'pre-last' },
-  { section: 'G', hhlExclude: true,  smokerOnly: false, hhlTitle: null,                                 lhlTitle: 'Efter operationen',            notification: false, timing: 'post' },
-  { section: 'H', hhlExclude: false, smokerOnly: false, hhlTitle: 'Pas på dit knæ',                    lhlTitle: 'Pas på dit knæ',               notification: false, timing: 'post' },
+  { section: 'G', hhlExclude: true,  smokerOnly: false, hhlTitle: null,                                  lhlTitle: 'Efter operationen',                    notification: false, timing: 'post', offset: 0  },
+  { section: 'H', hhlExclude: false, smokerOnly: false, hhlTitle: 'Pas på dit ben',                     lhlTitle: 'Pas på dit ben',                       notification: false, timing: 'post', offset: 0  },
+  { section: 'H', hhlExclude: false, smokerOnly: false, hhlTitle: 'Hold styr på smertelindringen',      lhlTitle: 'Hvordan du håndterer din smerte',       notification: false, timing: 'post', offset: 0  },
+  { section: 'I', hhlExclude: false, smokerOnly: false, hhlTitle: 'Skift bandagen, når du kommer hjem', lhlTitle: 'Skift bandagen, når du kommer hjem',    notification: false, timing: 'post', offset: 1  },
+  { section: 'I', hhlExclude: false, smokerOnly: false, hhlTitle: 'Observér operationssåret',           lhlTitle: 'Hvordan du holder øje med infektion',   notification: false, timing: 'post', offset: 1  },
+  { section: 'J', hhlExclude: false, smokerOnly: false, hhlTitle: 'Om fysisk træning',                  lhlTitle: 'Hvad du kan forvente med fysioterapi',  notification: false, timing: 'post', offset: 2  },
+  { section: 'K', hhlExclude: false, smokerOnly: false, hhlTitle: 'Fjern stingene',                     lhlTitle: 'Fjern stingene',                        notification: true,  timing: 'post', offset: 7  },
+  { section: 'L', hhlExclude: false, smokerOnly: false, hhlTitle: 'Returner brusestolen',               lhlTitle: 'Sådan returnerer du brusestolen',       notification: true,  timing: 'post', offset: 90 },
 ];
 
-// Section groups for distribution
-// Pre-op sections are grouped: A+B (early), C+D (mid), E+F (late/last-day)
-const SECTION_GROUPS = ['A', 'B', 'C', 'D', 'E', 'F'];
-const GROUP_EARLY  = ['A', 'B'];
-const GROUP_MID    = ['C', 'D'];
-const GROUP_LATE   = ['E', 'F'];
 
 // ══════════════════════════════════════
 //  ALGORITHM
@@ -889,50 +933,49 @@ function generateTasks(daysToOp, literacy, smoker) {
     title: isHHL ? t.hhlTitle : t.lhlTitle,
     notification: t.notification,
     timing: t.timing,
+    offset: t.offset,
   }));
 
-  const preTasks  = eligible.filter(t => t.timing === 'pre');
-  const lateTasks = eligible.filter(t => t.timing === 'pre-last');
+  const preTasks  = eligible.filter(t => t.timing === 'pre' || t.timing === 'pre-last');
   const postTasks = eligible.filter(t => t.timing === 'post');
 
-  // Split pre-tasks into 3 groups by section
-  const earlyTasks = preTasks.filter(t => GROUP_EARLY.includes(t.section));
-  const midTasks   = preTasks.filter(t => GROUP_MID.includes(t.section));
-  // lateTasks is already filtered above (section E timing=pre, section F timing=pre-last)
-  const sectionETasks = preTasks.filter(t => t.section === 'E');
-  const allLateTasks  = [...sectionETasks, ...lateTasks];
+  const numTasks = preTasks.length;
+  let taskList = [];
 
-  // Assign tasks to day numbers
-  // N = daysToOp pre-op days, then operation day = N+1 (but we call it daysToOp+1)
-  // post-op days continue from daysToOp+2 onward
-
-  let taskList = []; // { dayNum, task }
-
-  if (daysToOp === 1) {
-    // Everything in Day 1
-    [...earlyTasks, ...midTasks, ...allLateTasks].forEach(t => taskList.push({ dayNum: 1, task: t }));
-  } else if (daysToOp === 2) {
-    earlyTasks.forEach(t => taskList.push({ dayNum: 1, task: t }));
-    midTasks.forEach(t => taskList.push({ dayNum: 1, task: t }));
-    allLateTasks.forEach(t => taskList.push({ dayNum: 2, task: t }));
+  if (daysToOp >= numTasks) {
+    // One task per day, anchored: first task on day 1, last task on day daysToOp,
+    // middle tasks spread evenly — gap days fall naturally in between
+    preTasks.forEach((t, i) => {
+      const dayNum = numTasks === 1
+        ? 1
+        : Math.floor(1 + i * (daysToOp - 1) / (numTasks - 1));
+      taskList.push({ dayNum, task: t });
+    });
   } else {
-    // 3+ days: distribute early to day 1, late to day N, mid spread in between
-    // Spread across days: early → day 1, mid → day ~middle, late → day N
-    const earlyDay = 1;
-    const lateDay  = daysToOp;
-    const midDay   = Math.round(daysToOp / 2);
+    // Fewer days than tasks: distribute by section proportionally, never split a section
+    const sectionMap = new Map();
+    const sectionOrder = [];
+    preTasks.forEach(t => {
+      if (!sectionMap.has(t.section)) {
+        sectionMap.set(t.section, []);
+        sectionOrder.push(t.section);
+      }
+      sectionMap.get(t.section).push(t);
+    });
 
-    earlyTasks.forEach(t => taskList.push({ dayNum: earlyDay, task: t }));
-    midTasks.forEach(t   => taskList.push({ dayNum: midDay,   task: t }));
-    allLateTasks.forEach(t => taskList.push({ dayNum: lateDay, task: t }));
+    const numSections = sectionOrder.length;
+    sectionOrder.forEach((section, i) => {
+      const dayNum = Math.ceil((i + 1) * daysToOp / numSections);
+      sectionMap.get(section).forEach(t => taskList.push({ dayNum, task: t }));
+    });
   }
 
   // Operation day
   const opDayNum = daysToOp + 1;
 
-  // Post-op days: start at opDayNum + 1
-  postTasks.forEach((t, i) => {
-    taskList.push({ dayNum: opDayNum + 1 + i, task: t });
+  // Post-op days: placed at opDayNum + task's offset
+  postTasks.forEach(t => {
+    taskList.push({ dayNum: opDayNum + t.offset, task: t });
   });
 
   return { taskList, opDayNum, daysToOp };
@@ -941,20 +984,58 @@ function generateTasks(daysToOp, literacy, smoker) {
 // ══════════════════════════════════════
 //  RENDER
 // ══════════════════════════════════════
+function createTaskCard(task, isCompleted) {
+  const card = document.createElement('div');
+  card.className = 'task-card sketch-border';
+  card.style.setProperty('--sketch-filter', `url(#${sketchFilter()})`);
+  const bw = () => (1.3 + Math.random() * 0.2).toFixed(2) + 'px';
+  card.style.setProperty('--bw-t', bw());
+  card.style.setProperty('--bw-r', bw());
+  card.style.setProperty('--bw-b', bw());
+  card.style.setProperty('--bw-l', bw());
+
+  const left = document.createElement('div');
+  left.className = 'task-left';
+
+  if (task.notification) {
+    const notifIcon = document.createElement('div');
+    notifIcon.className = 'notif-icon';
+    notifIcon.innerHTML = `<svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>`;
+    left.appendChild(notifIcon);
+  }
+
+  const title = document.createElement('div');
+  title.className = 'task-title';
+  title.textContent = task.title;
+  left.appendChild(title);
+
+  const statusIcon = document.createElement('div');
+  statusIcon.className = 'status-icon';
+  if (isCompleted) {
+    statusIcon.innerHTML = `<svg viewBox="0 0 24 24" stroke="#2bc46a" stroke-width="2" fill="none"><polyline points="20 6 9 17 4 12"/></svg>`;
+  } else {
+    statusIcon.innerHTML = `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke="#c0392b" stroke-width="1.8" fill="none"/></svg>`;
+  }
+
+  card.appendChild(left);
+  card.appendChild(statusIcon);
+  return card;
+}
+
 function renderTasks(filter) {
   const { taskList, opDayNum, daysToOp } = state.result;
   const container = document.getElementById('task-list-inner');
   container.innerHTML = '';
+  // reset sketch filters so old ones don't accumulate
+  document.getElementById('sketch-defs').innerHTML = '';
+  _sketchN = 0;
 
   // Determine which tasks are "completed" for Overskredet filter
   // First task ever is the only completed one
   const firstTask = taskList[0];
 
-  // Build day buckets for all day numbers that appear
+  // Only include days that actually have tasks, plus the op day
   const allDayNums = new Set(taskList.map(t => t.dayNum));
-  // Also include all days 1..daysToOp even if empty
-  for (let d = 1; d <= daysToOp; d++) allDayNums.add(d);
-  // Add op day
   allDayNums.add(opDayNum);
   // Post-op days already in taskList
 
@@ -973,17 +1054,17 @@ function renderTasks(filter) {
       if (filter === 'idag' || filter === 'overskredet') return; // hide in filters
       const opCard = document.createElement('div');
       opCard.className = 'op-card';
-      opCard.onclick = openOpDetail;
       // Day header above op card
+      const opDate = journeyDate(dayNum);
       const opDayHeader = document.createElement('div');
       opDayHeader.className = 'day-header';
-      opDayHeader.textContent = `Dag ${dayNum} — Operationsdagen`;
+      opDayHeader.textContent = `${formatDate(opDate)} — Operationsdagen`;
       container.appendChild(opDayHeader);
 
       opCard.innerHTML = `
         <div class="op-date-col">
-          <div class="op-day-num">${dayNum}</div>
-          <div class="op-month">DAG</div>
+          <div class="op-day-num">${opDate.getDate()}</div>
+          <div class="op-month">${MON_ABBR[opDate.getMonth()]}</div>
         </div>
         <div class="op-divider"></div>
         <div class="op-info">
@@ -996,6 +1077,13 @@ function renderTasks(filter) {
         </div>
       `;
       container.appendChild(opCard);
+
+      // render tasks at offset 0 (day of operation) below the op card
+      taskList.filter(t => t.dayNum === opDayNum).forEach(({ task }) => {
+        const isCompleted = taskList.findIndex(t => t.task === task) === 0;
+        container.appendChild(createTaskCard(task, isCompleted));
+      });
+
       renderedAnything = true;
       return;
     }
@@ -1013,10 +1101,8 @@ function renderTasks(filter) {
       if (visibleTasks.length === 0) return;
     }
 
-    const isPostOp = dayNum > opDayNum;
-    const dayLabel = isPostOp
-      ? `Dag ${dayNum} — efter operation`
-      : `Dag ${dayNum}`;
+    const dayDate = journeyDate(dayNum);
+    const dayLabel = formatDate(dayDate);
 
     // Day header
     const dayGroup = document.createElement('div');
@@ -1027,65 +1113,50 @@ function renderTasks(filter) {
     header.textContent = dayLabel;
     dayGroup.appendChild(header);
 
-    if (dayTasks.length === 0 && filter === 'alle') {
-      const empty = document.createElement('div');
-      empty.className = 'empty-day';
-      empty.textContent = 'Ingen opgaver denne dag';
-      dayGroup.appendChild(empty);
-    }
-
     // Render tasks for this day
     visibleTasks.forEach(({ task }) => {
       const isCompleted = taskList.findIndex(t => t.task === task) === 0;
-
-      const card = document.createElement('div');
-      card.className = 'task-card sketch-border';
-
-      const left = document.createElement('div');
-      left.className = 'task-left';
-
-      if (task.notification) {
-        const notifIcon = document.createElement('div');
-        notifIcon.className = 'notif-icon';
-        notifIcon.innerHTML = `<svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>`;
-        left.appendChild(notifIcon);
-      }
-
-      const title = document.createElement('div');
-      title.className = 'task-title';
-      title.textContent = task.title;
-      left.appendChild(title);
-
-      const statusIcon = document.createElement('div');
-      statusIcon.className = 'status-icon';
-      if (isCompleted) {
-        statusIcon.innerHTML = `<svg viewBox="0 0 24 24" stroke="#999" stroke-width="2" fill="none"><polyline points="20 6 9 17 4 12"/></svg>`;
-      } else {
-        statusIcon.innerHTML = `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke="#c0392b" stroke-width="1.8" fill="none"/></svg>`;
-      }
-
-      card.appendChild(left);
-      card.appendChild(statusIcon);
-      dayGroup.appendChild(card);
+      dayGroup.appendChild(createTaskCard(task, isCompleted));
       renderedAnything = true;
     });
 
     container.appendChild(dayGroup);
   });
 
-  // Apply gradient to scroll container
-  applyGradient(opDayNum, totalDays);
+  // Apply gradient peaking at the op card's position in the rendered list
+  applyGradient(sortedDays, opDayNum);
 }
 
-function applyGradient(opDayNum, totalDays) {
+function applyGradient(sortedDays, opDayNum) {
   const scroll = document.getElementById('task-scroll');
-  // Simple blue tint gradient peaking at middle
+  const total   = sortedDays.length;
+  if (total <= 1) { scroll.style.background = '#fff'; return; }
+
+  const pct = i => Math.round((i / (total - 1)) * 100);
+  const opIdx = sortedDays.indexOf(opDayNum);
+
+  const p4  = pct(opIdx);                           // peak — op card
+
+  // Pre-peak stops always spread evenly from 0 → p4, so 1-day journeys still build
+  const p0  = 0;
+  const p1  = Math.round(p4 * 0.25);
+  const p2  = Math.round(p4 * 0.55);
+  const p3  = Math.round(p4 * 0.82);
+
+  // Post-peak stops anchored to actual list positions
+  const p5  = pct(Math.min(total - 1, opIdx + 1));  // drop
+  const p6  = pct(Math.min(total - 1, opIdx + 2));  // fade
+  const p7  = 100;
+
   scroll.style.background = `linear-gradient(to bottom,
-    #ffffff 0%,
-    rgba(20,40,240,0.04) 40%,
-    rgba(20,40,240,0.09) 55%,
-    rgba(20,40,240,0.04) 70%,
-    #ffffff 100%
+    rgba(20,40,240,0)    ${p0}%,
+    rgba(20,40,240,0.02) ${p1}%,
+    rgba(20,40,240,0.07) ${p2}%,
+    rgba(20,40,240,0.14) ${p3}%,
+    rgba(20,40,240,0.16) ${p4}%,
+    rgba(20,40,240,0.10) ${p5}%,
+    rgba(20,40,240,0.03) ${p6}%,
+    rgba(20,40,240,0)    ${p7}%
   )`;
 }
 
@@ -1141,6 +1212,10 @@ function doRestart() {
 }
 
 function openOpDetail() {
+  const opDate = journeyDate(state.result.opDayNum);
+  const dayName = DAY_ABBR[opDate.getDay()];
+  const dateStr = `${dayName}.${opDate.getDate()}.${MON_ABBR[opDate.getMonth()]}.${opDate.getFullYear()}`;
+  document.getElementById('detail-date').innerHTML = `${dateStr}<br>kl. 08:00`;
   showScreen('screen-op-detail');
 }
 

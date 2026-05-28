@@ -65,10 +65,7 @@ This is the project architecture for Claude to follow for the Emento-Tasks proje
 	- They should be prompted with a pop-up screen that says “Restart the Prototype? With a yes or no button” (yes leads to the start, no returns to task screen)
 - Testers can scroll the tasks list
 - Testers can press on the filter buttons to filter the tasks
-- Testers can press on the operation appointment card to open it’s details
-	- Base that screen off this screenshot from the app: ![][image-3]
 
 
 [image-1]:	file:///Users/francescadesmarais/Documents/Claude%20Projects/emento-tasks/images/IMG_0609.jpg
 [image-2]:	file:///Users/francescadesmarais/Documents/Claude%20Projects/emento-tasks/images/IMG_0608.jpg
-[image-3]:	file:///Users/francescadesmarais/Documents/Claude%20Projects/emento-tasks/images/IMG_0610.jpg

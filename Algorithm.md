@@ -40,19 +40,24 @@ Take the input about the patient and their operation and use the below table to 
 - Exclude any tasks for a High Health Literacy patient (HHL) if the table says exclude - this is additional info they don’t need
 - Use a HHL or LHL title depending on if the patient has High Health Literacy or Low Health Literacy
 - For any tasks that have specific timing, give them a notification icon tag, and make sure they appear in the right position in the task list 
-	- For example: the Fasting Before 6 hours should appear 6 hours before the start of an operation  
-		  
+	- For example: the Fasting Before 6 hours should appear 6 hours before the start of an operation
 
-| Section | Pre-Op | Non-Smoker | HHL     | Title: HHL                              | Title:LHL             | Notification | Timing               |
-| ------- | ------ | ---------- | ------- | --------------------------------------- | --------------------- | ------------ | -------------------- |
-| A       | Yes    |            |         | Welome                                  | Hello                 |              |                      |
-| A       | Yes    |            | Exclude |                                         | Good tips             |              |                      |
-| B       | Yes    |            |         | About the Operation                     | What will happen?     |              |                      |
-| B       | Yes    |            |         | Anesthesia                              | You will be out       |              |                      |
-| C       | Yes    |            |         | Get ready                               | Get ready             |              |                      |
-| D       | Yes    | Include    |         | Smoking is bad                          | Smoking is bad        |              |                      |
-| E       | Yes    |            |         | Helpful information about operation day | Good tips again       |              |                      |
-| F       | Yes    |            |         | Start Fasting!                          | Start Fasting!        | Yes          | Day Before Operation |
-| G       | No     |            | Exclude |                                         | After operation       |              |                      |
-| H       | No     |            |         | Take care of your leg                   | Take care of your leg |              |                      |
+| Section | Pre-Op | Non-Smoker | HHL     | Title: HHL                              | Title:LHL                               | Notification | Timing                   |
+| ------- | ------ | ---------- | ------- | --------------------------------------- | --------------------------------------- | ------------ | ------------------------ |
+| A       | Yes    |            |         | Welome                                  | Hello                                   |              |                          |
+| A       | Yes    |            | Exclude |                                         | Good tips                               |              |                          |
+| B       | Yes    |            |         | About the Operation                     | What will happen?                       |              |                          |
+| B       | Yes    |            |         | Anesthesia                              | You will be out                         |              |                          |
+| C       | Yes    |            |         | Get ready                               | Get ready                               |              |                          |
+| D       | Yes    | Include    |         | Smoking is bad                          | Smoking is bad                          |              |                          |
+| E       | Yes    |            |         | Helpful information about operation day | Good tips again                         |              |                          |
+| F       | Yes    |            |         | Start Fasting!                          | Start Fasting!                          | Yes          | Day Before Operation     |
+| G       | No     |            | Exclude |                                         | After operation                         |              | Day of operation         |
+| H       | No     |            |         | Take care of your leg                   | How to take care of your leg            |              | Day of operation         |
+| H       | No     |            |         | Stay on top of pain management          | How to manage your pain                 |              | Day of operation         |
+| I       |        |            |         | Replace the bandages when you come home | Replace the bandages when you come home |              | Day after operation      |
+| I       |        |            |         | Observe the operation wound             | How to observe for an infection         |              | Day after operation      |
+| J       |        |            |         | About physical training                 | What to expect with physical therapy    |              | Two days after operation |
+| K       |        |            |         | Remove the stitches                     | Remove the stiches                      | Yes          | 7 days after operation   |
+| L       |        |            |         | Return the shower stool                 | How to return the shower stool          | Yes          | 3 months after operation |
 
