@@ -685,6 +685,257 @@
     font-style: italic;
   }
 
+  /* ── CAMERA ICON BUTTON ── */
+  .camera-btn {
+    margin-left: auto;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .camera-btn svg {
+    width: 30px;
+    height: 30px;
+    stroke: var(--blue);
+    stroke-width: 1.8;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* ── SCREEN 4: CAMERA ── */
+  #screen-camera {
+    background: var(--white);
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+  }
+  .camera-header {
+    padding: 52px 16px 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--white);
+    border-bottom: 1px solid var(--gray-line);
+    flex-shrink: 0;
+  }
+  .camera-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 32px;
+    gap: 28px;
+    text-align: center;
+  }
+  .camera-instruction {
+    font-family: var(--font-ui);
+    font-size: 16px;
+    color: var(--ink);
+    line-height: 1.55;
+    max-width: 260px;
+  }
+  .camera-shoot-btn {
+    width: 92px;
+    height: 92px;
+    border: 2px solid var(--blue);
+    background: var(--blue-tint);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    clip-path: polygon(4% 0%, 96% 0%, 96% 4%, 100% 4%, 100% 96%, 96% 96%, 96% 100%, 4% 100%, 4% 96%, 0% 96%, 0% 4%, 4% 4%);
+    transition: background 0.15s;
+  }
+  .camera-shoot-btn:active { background: var(--blue-light); }
+  .camera-shoot-btn svg {
+    width: 46px;
+    height: 46px;
+    stroke: var(--blue);
+    stroke-width: 1.6;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .camera-sub {
+    font-family: var(--font-ui);
+    font-size: 13px;
+    color: var(--gray-mid);
+    line-height: 1.55;
+    max-width: 240px;
+  }
+
+  /* ── SCREEN 5: ANALYSING ── */
+  #screen-analysing {
+    background: var(--white);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  .analysing-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    padding: 40px;
+    text-align: center;
+  }
+  .analysing-icon svg {
+    width: 60px;
+    height: 60px;
+    stroke: var(--blue);
+    stroke-width: 1.4;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  @keyframes scanMove {
+    0%   { transform: translateY(0);    opacity: 1; }
+    50%  { transform: translateY(26px); opacity: 0.4; }
+    100% { transform: translateY(0);    opacity: 1; }
+  }
+  .scan-line { animation: scanMove 1.5s ease-in-out infinite; }
+  .analysing-text {
+    font-family: var(--font-ui);
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  /* ── SCREEN 6: ANALYSIS RESULT ── */
+  #screen-analysis {
+    background: var(--white);
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+  }
+  .analysis-header {
+    padding: 52px 16px 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--white);
+    flex-shrink: 0;
+  }
+  .analysis-scroll {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px 16px 20px;
+  }
+  .analysis-photo-wrap {
+    width: 100%;
+    margin-bottom: 18px;
+    overflow: hidden;
+    border: 1.5px solid var(--gray-line);
+    clip-path: polygon(1.5% 0%, 98.5% 0%, 98.5% 2%, 100% 2%, 100% 98%, 98.5% 98%, 98.5% 100%, 1.5% 100%, 1.5% 98%, 0% 98%, 0% 2%, 1.5% 2%);
+  }
+  .analysis-photo {
+    width: 100%;
+    max-height: 200px;
+    object-fit: contain;
+    background: #f8f8f8;
+    display: block;
+  }
+  .analysis-section-label {
+    font-family: var(--font-ui);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gray-mid);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 10px;
+  }
+  .drug-card {
+    margin-bottom: 10px;
+    padding: 12px 14px;
+    position: relative;
+    clip-path: polygon(1.5% 0%, 98.5% 0%, 98.5% 6%, 100% 6%, 100% 94%, 98.5% 94%, 98.5% 100%, 1.5% 100%, 1.5% 94%, 0% 94%, 0% 6%, 1.5% 6%);
+  }
+  .drug-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1.5px solid var(--gray-line);
+    pointer-events: none;
+    clip-path: polygon(1.5% 0%, 98.5% 0%, 98.5% 6%, 100% 6%, 100% 94%, 98.5% 94%, 98.5% 100%, 1.5% 100%, 1.5% 94%, 0% 94%, 0% 6%, 1.5% 6%);
+  }
+  .drug-name {
+    font-family: var(--font-ui);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 5px;
+  }
+  .drug-detail {
+    font-family: var(--font-ui);
+    font-size: 13px;
+    color: var(--gray-dark);
+    line-height: 1.65;
+  }
+  .analysis-note {
+    font-family: var(--font-ui);
+    font-size: 13px;
+    color: var(--blue);
+    margin-top: 14px;
+    padding: 8px 12px;
+    border-left: 2px solid var(--blue);
+    line-height: 1.5;
+  }
+  .analysis-cta-wrap {
+    padding: 12px 16px 24px;
+    border-top: 1px solid var(--gray-line);
+    background: var(--white);
+    flex-shrink: 0;
+  }
+  .analysis-cta-wrap .start-btn {
+    margin: 0;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  /* ── CAMERA CARD ENTRY ANIMATION ── */
+  .camera-entry-wrap {
+    overflow: hidden;
+    max-height: 0;
+    margin-bottom: 0;
+    transition: max-height 0.38s ease, margin-bottom 0.38s ease;
+  }
+  .camera-entry-wrap.open {
+    max-height: 120px;
+    margin-bottom: 8px;
+  }
+
+  /* Pink flash: lines, text, icons only — no background change */
+  @keyframes borderFlash {
+    0%   { border-color: #FF6B6B; }
+    42%  { border-color: #FF6B6B; }
+    100% { border-color: #1a1a1a; }
+  }
+  @keyframes titleFlash {
+    0%   { color: #FF6B6B; }
+    42%  { color: #FF6B6B; }
+    100% { color: #1a1a1a; }
+  }
+  @keyframes notifFlash {
+    0%   { stroke: #FF6B6B; }
+    42%  { stroke: #FF6B6B; }
+    100% { stroke: #8b6ed4; }
+  }
+  @keyframes statusFlash {
+    0%   { stroke: #FF6B6B; }
+    42%  { stroke: #FF6B6B; }
+    100% { stroke: #c0392b; }
+  }
+  .card-flash::before                   { animation: borderFlash 1.6s ease forwards; }
+  .card-flash .task-title               { animation: titleFlash  1.6s ease forwards; }
+  .card-flash .notif-icon svg           { animation: notifFlash  1.6s ease forwards; }
+  .card-flash .status-icon svg circle   { animation: statusFlash 1.6s ease forwards; }
+
   /* Hidden */
   .hidden { display: none !important; }
 
@@ -738,6 +989,19 @@
           <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
         </button>
         <span class="screen-title">Knæoperation – menisk</span>
+        <button class="camera-btn" onclick="showCameraModal()">
+          <svg viewBox="0 0 28 26">
+            <!-- camera body -->
+            <rect x="1" y="8" width="22" height="16"/>
+            <!-- lens -->
+            <circle cx="12" cy="16" r="4.5"/>
+            <!-- top notch -->
+            <path d="M8 8V6h8v2"/>
+            <!-- plus badge top-right -->
+            <line x1="21" y1="2" x2="21" y2="8"/>
+            <line x1="18" y1="5" x2="24" y2="5"/>
+          </svg>
+        </button>
       </div>
       <div class="filter-row">
         <button class="filter-pill active" id="pill-alle" onclick="setFilter('alle')">Alle</button>
@@ -832,6 +1096,81 @@
     </div>
   </div>
 
+  <!-- ══ SCREEN 4: CAMERA ══ -->
+  <div id="screen-camera" class="screen">
+    <div class="camera-header">
+      <button class="back-btn" onclick="closeCameraFlow()">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <span class="screen-title">Tilføj til plejejournal</span>
+    </div>
+    <div class="camera-body">
+      <p class="camera-instruction">Tag et billede af papiret fra sygeplejersken</p>
+      <button class="camera-shoot-btn" onclick="openNativeCamera()">
+        <svg viewBox="0 0 28 26">
+          <rect x="1" y="8" width="22" height="16"/>
+          <circle cx="12" cy="16" r="4.5"/>
+          <path d="M8 8V6h8v2"/>
+        </svg>
+      </button>
+      <p class="camera-sub">Systemet analyserer indholdet og tilføjer det til din plejejournal</p>
+    </div>
+    <input type="file" accept="image/*" capture="environment" id="camera-input" style="display:none;" onchange="handlePhoto()"/>
+  </div>
+
+  <!-- ══ SCREEN 5: ANALYSING ══ -->
+  <div id="screen-analysing" class="screen">
+    <div class="analysing-body">
+      <div class="analysing-icon">
+        <svg viewBox="0 0 56 52">
+          <!-- document outline -->
+          <rect x="4" y="4" width="36" height="44"/>
+          <!-- folded corner -->
+          <polyline points="30,4 40,4 40,14 30,14 30,4"/>
+          <!-- text lines -->
+          <line x1="10" y1="22" x2="34" y2="22"/>
+          <line x1="10" y1="30" x2="34" y2="30"/>
+          <line x1="10" y1="38" x2="24" y2="38"/>
+          <!-- scan line -->
+          <line x1="2" y1="14" x2="42" y2="14" stroke="#1428F0" stroke-width="2" class="scan-line"/>
+        </svg>
+      </div>
+      <p class="analysing-text">Analyserer billede<span id="analysing-dots"></span></p>
+    </div>
+  </div>
+
+  <!-- ══ SCREEN 6: ANALYSIS RESULT ══ -->
+  <div id="screen-analysis" class="screen">
+    <div class="analysis-header">
+      <button class="back-btn" onclick="closeAnalysisToTasks()">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <span class="screen-title">Information fundet</span>
+    </div>
+    <div class="analysis-scroll">
+      <div class="analysis-photo-wrap">
+        <img src="images/pain-medication.jpg" class="analysis-photo" alt="Sygeplejerskens note"/>
+      </div>
+      <div class="analysis-section-label">Identificeret indhold</div>
+      <div class="drug-card">
+        <div class="drug-name">Paracetamol</div>
+        <div class="drug-detail">2 tabletter (2×500mg)</div>
+        <div class="drug-detail">Morgen · Middag · Aften</div>
+        <div class="drug-detail">Start 23/03 – Slut 27/03</div>
+      </div>
+      <div class="drug-card">
+        <div class="drug-name">Tramadol</div>
+        <div class="drug-detail">1 tablet (1×50mg) · efter behov</div>
+        <div class="drug-detail">Højst 4 gange dagligt</div>
+        <div class="drug-detail">Start 23/12 – Slut 25/12</div>
+      </div>
+      <div class="analysis-note">Paracetamol-påmindelser tilføjes til din plejejournal</div>
+    </div>
+    <div class="analysis-cta-wrap">
+      <button class="start-btn" onclick="addToJourney()">Tilføj til din rejse</button>
+    </div>
+  </div>
+
   <!-- ══ RESTART MODAL ══ -->
   <div class="modal-overlay" id="restart-modal">
     <div class="modal-box">
@@ -839,6 +1178,16 @@
       <div class="modal-btns">
         <button class="modal-btn primary" onclick="doRestart()">Ja</button>
         <button class="modal-btn" onclick="closeModal()">Nej</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="camera-modal">
+    <div class="modal-box">
+      <div class="modal-title">Tilføj information til din digitale plejejournal</div>
+      <div class="modal-btns">
+        <button class="modal-btn primary" onclick="goToCamera()">Ja</button>
+        <button class="modal-btn" onclick="closeCameraModal()">Tilbage</button>
       </div>
     </div>
   </div>
@@ -854,7 +1203,9 @@ let state = {
   literacy: 'high',  // 'high' | 'low'
   smoker: false,
   filter: 'alle',
-  tasks: []
+  tasks: [],
+  cameraCardsActive: false,
+  pendingCameraAnimation: false,
 };
 
 // ══════════════════════════════════════
@@ -910,7 +1261,7 @@ const TASK_DEFS = [
   { section: 'F', hhlExclude: false, smokerOnly: false, hhlTitle: 'Start fastekuren!',                 lhlTitle: 'Start fastekuren!',            notification: true,  timing: 'pre-last' },
   { section: 'G', hhlExclude: true,  smokerOnly: false, hhlTitle: null,                                  lhlTitle: 'Efter operationen',                    notification: false, timing: 'post', offset: 0  },
   { section: 'H', hhlExclude: false, smokerOnly: false, hhlTitle: 'Pas på dit ben',                     lhlTitle: 'Pas på dit ben',                       notification: false, timing: 'post', offset: 0  },
-  { section: 'H', hhlExclude: false, smokerOnly: false, hhlTitle: 'Hold styr på smertelindringen',      lhlTitle: 'Hvordan du håndterer din smerte',       notification: false, timing: 'post', offset: 0  },
+  { section: 'H', hhlExclude: false, smokerOnly: false, hhlTitle: 'Hold styr på smertelindringen',      lhlTitle: 'Hvordan du håndterer din smerte',       notification: false, timing: 'post', offset: 0, isPainMgmt: true  },
   { section: 'I', hhlExclude: false, smokerOnly: false, hhlTitle: 'Skift bandagen, når du kommer hjem', lhlTitle: 'Skift bandagen, når du kommer hjem',    notification: false, timing: 'post', offset: 1  },
   { section: 'I', hhlExclude: false, smokerOnly: false, hhlTitle: 'Observér operationssåret',           lhlTitle: 'Hvordan du holder øje med infektion',   notification: false, timing: 'post', offset: 1  },
   { section: 'J', hhlExclude: false, smokerOnly: false, hhlTitle: 'Om fysisk træning',                  lhlTitle: 'Hvad du kan forvente med fysioterapi',  notification: false, timing: 'post', offset: 2  },
@@ -918,6 +1269,23 @@ const TASK_DEFS = [
   { section: 'L', hhlExclude: false, smokerOnly: false, hhlTitle: 'Returner brusestolen',               lhlTitle: 'Sådan returnerer du brusestolen',       notification: true,  timing: 'post', offset: 90 },
 ];
 
+
+// 12 paracetamol reminder cards: morning/middag/aften × 4 days post-op
+const CAMERA_TASKS = [];
+['morgen', 'middag', 'aften'].forEach(time => {
+  for (let day = 1; day <= 4; day++) {
+    CAMERA_TASKS.push({
+      section: 'CAM',
+      title: `Husk paracetamol – ${time}`,
+      notification: true,
+      timing: 'post',
+      offset: day,
+      isCamera: true,
+    });
+  }
+});
+// Sort by day offset so cards enter in day order
+CAMERA_TASKS.sort((a, b) => a.offset - b.offset || 0);
 
 // ══════════════════════════════════════
 //  ALGORITHM
@@ -1026,7 +1394,15 @@ function createTaskCard(task, isCompleted) {
 }
 
 function renderTasks(filter) {
-  const { taskList, opDayNum, daysToOp } = state.result;
+  const { taskList: baseTasks, opDayNum, daysToOp } = state.result;
+
+  // Merge in camera tasks if active
+  const taskList = [...baseTasks];
+  if (state.cameraCardsActive) {
+    CAMERA_TASKS.forEach(t => {
+      taskList.push({ dayNum: opDayNum + t.offset, task: t });
+    });
+  }
   const container = document.getElementById('task-list-inner');
   container.innerHTML = '';
   // reset sketch filters so old ones don't accumulate
@@ -1084,7 +1460,9 @@ function renderTasks(filter) {
       // render tasks at offset 0 (day of operation) below the op card
       taskList.filter(t => t.dayNum === opDayNum).forEach(({ task }) => {
         const isCompleted = taskList.findIndex(t => t.task === task) === 0;
-        container.appendChild(createTaskCard(task, isCompleted));
+        const card = createTaskCard(task, isCompleted);
+        if (task.isPainMgmt) card.id = 'pain-mgmt-card';
+        container.appendChild(card);
       });
 
       renderedAnything = true;
@@ -1119,7 +1497,17 @@ function renderTasks(filter) {
     // Render tasks for this day
     visibleTasks.forEach(({ task }) => {
       const isCompleted = taskList.findIndex(t => t.task === task) === 0;
-      dayGroup.appendChild(createTaskCard(task, isCompleted));
+      const card = createTaskCard(task, isCompleted);
+      if (task.isPainMgmt) card.id = 'pain-mgmt-card';
+
+      if (task.isCamera && state.pendingCameraAnimation) {
+        const wrap = document.createElement('div');
+        wrap.className = 'camera-entry-wrap';
+        wrap.appendChild(card);
+        dayGroup.appendChild(wrap);
+      } else {
+        dayGroup.appendChild(card);
+      }
       renderedAnything = true;
     });
 
@@ -1131,9 +1519,10 @@ function renderTasks(filter) {
 }
 
 function applyGradient(sortedDays, opDayNum) {
+  const inner  = document.getElementById('task-list-inner');
   const scroll = document.getElementById('task-scroll');
-  const total   = sortedDays.length;
-  if (total <= 1) { scroll.style.background = '#fff'; return; }
+  const total  = sortedDays.length;
+  if (total <= 1) { inner.style.background = '#fff'; scroll.style.background = ''; return; }
 
   const pct = i => Math.round((i / (total - 1)) * 100);
   const opIdx = sortedDays.indexOf(opDayNum);
@@ -1151,6 +1540,7 @@ function applyGradient(sortedDays, opDayNum) {
   const p6  = pct(Math.min(total - 1, opIdx + 2));  // fade
   const p7  = 100;
 
+  inner.style.background = '';
   scroll.style.background = `linear-gradient(to bottom,
     rgba(20,40,240,0)    ${p0}%,
     rgba(20,40,240,0.02) ${p1}%,
@@ -1161,6 +1551,7 @@ function applyGradient(sortedDays, opDayNum) {
     rgba(20,40,240,0.03) ${p6}%,
     rgba(20,40,240,0)    ${p7}%
   )`;
+  scroll.style.backgroundAttachment = 'local';
 }
 
 // ══════════════════════════════════════
@@ -1224,6 +1615,101 @@ function openOpDetail() {
 
 function closeOpDetail() {
   showScreen('screen-tasks');
+}
+
+// ══════════════════════════════════════
+//  CAMERA FLOW
+// ══════════════════════════════════════
+function showCameraModal() {
+  document.getElementById('camera-modal').classList.add('open');
+}
+function closeCameraModal() {
+  document.getElementById('camera-modal').classList.remove('open');
+}
+function goToCamera() {
+  closeCameraModal();
+  showScreen('screen-camera');
+}
+function closeCameraFlow() {
+  showScreen('screen-tasks');
+  setFilter(state.filter);
+}
+function openNativeCamera() {
+  document.getElementById('camera-input').click();
+}
+function handlePhoto() {
+  showScreen('screen-analysing');
+  startDotsAnimation();
+  setTimeout(() => {
+    stopDotsAnimation();
+    showScreen('screen-analysis');
+  }, 2200);
+}
+function closeAnalysisToTasks() {
+  showScreen('screen-tasks');
+  setFilter(state.filter);
+}
+
+// ── Analysing dots ──
+let _dotsInterval = null;
+function startDotsAnimation() {
+  let n = 0;
+  _dotsInterval = setInterval(() => {
+    n = (n + 1) % 4;
+    const el = document.getElementById('analysing-dots');
+    if (el) el.textContent = '.'.repeat(n);
+  }, 380);
+}
+function stopDotsAnimation() {
+  clearInterval(_dotsInterval);
+  _dotsInterval = null;
+}
+
+// ── Add to journey + animation ──
+function addToJourney() {
+  // Reset to clean state first (handles re-runs)
+  state.cameraCardsActive = false;
+  state.pendingCameraAnimation = false;
+  showScreen('screen-tasks');
+  setFilter('alle');
+
+  setTimeout(() => {
+    // Re-render with camera cards wrapped for animation
+    state.cameraCardsActive = true;
+    state.pendingCameraAnimation = true;
+    renderTasks('alle');
+    state.pendingCameraAnimation = false;
+
+    // Scroll to just above the op card so new cards are in view
+    const taskScroll = document.getElementById('task-scroll');
+    const opCard = document.querySelector('.op-card');
+    if (opCard && taskScroll) {
+      taskScroll.scrollTop = Math.max(0, opCard.offsetTop - 48);
+    }
+
+    setTimeout(triggerCameraAnimation, 250);
+  }, 420);
+}
+
+function triggerCameraAnimation() {
+  const wraps = [...document.querySelectorAll('.camera-entry-wrap')];
+  wraps.forEach((wrap, i) => {
+    setTimeout(() => {
+      wrap.classList.add('open');
+      const card = wrap.querySelector('.task-card');
+      if (card) card.classList.add('card-flash');
+    }, i * 150);
+  });
+
+  // Flash pain management card after last camera card opens
+  setTimeout(() => {
+    const painCard = document.getElementById('pain-mgmt-card');
+    if (painCard) {
+      painCard.classList.remove('card-flash');
+      void painCard.offsetWidth; // force reflow so animation restarts cleanly
+      painCard.classList.add('card-flash');
+    }
+  }, wraps.length * 150 + 350);
 }
 
 // Init
