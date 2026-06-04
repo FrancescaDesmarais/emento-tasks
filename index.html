@@ -405,6 +405,13 @@
     align-items: stretch;
     gap: 0;
     clip-path: polygon(1.5% 0%, 98.5% 0%, 98.5% 3.5%, 100% 3.5%, 100% 96.5%, 98.5% 96.5%, 98.5% 100%, 1.5% 100%, 1.5% 96.5%, 0% 96.5%, 0% 3.5%, 1.5% 3.5%);
+    cursor: pointer;
+    transition: background 0.1s;
+    width: 100%;
+    text-align: left;
+  }
+  .op-card:active {
+    background: var(--blue-light);
   }
 
   .op-date-col {
@@ -688,18 +695,19 @@
   /* ── CAMERA ICON BUTTON ── */
   .camera-btn {
     margin-left: auto;
-    background: none;
+    background: #FF6B6B;
     border: none;
     cursor: pointer;
-    padding: 4px;
+    padding: 7px;
+    border-radius: 50%;
     display: flex;
     align-items: center;
     flex-shrink: 0;
   }
   .camera-btn svg {
-    width: 30px;
-    height: 30px;
-    stroke: var(--blue);
+    width: 26px;
+    height: 26px;
+    stroke: var(--white);
     stroke-width: 1.8;
     fill: none;
     stroke-linecap: round;
@@ -903,38 +911,46 @@
     overflow: hidden;
     max-height: 0;
     margin-bottom: 0;
-    transition: max-height 0.38s ease, margin-bottom 0.38s ease;
+    transition: max-height 1.14s ease, margin-bottom 1.14s ease;
   }
   .camera-entry-wrap.open {
     max-height: 120px;
     margin-bottom: 8px;
   }
 
-  /* Pink flash: lines, text, icons only — no background change */
+  /* Static pink state during card build-in */
+  .card-active                           { background: rgba(255, 107, 107, 0.2); }
+  .card-active::before                   { border-color: #FF6B6B; }
+  .card-active .task-title               { color: #FF6B6B; }
+  .card-active .notif-icon svg           { stroke: #FF6B6B; }
+  .card-active .status-icon svg circle   { stroke: #FF6B6B; }
+
+  /* Pink flash: pink background, white foreground */
+  @keyframes bgFlash {
+    0%   { background: rgba(255, 107, 107, 0.2); }
+    100% { background: var(--white); }
+  }
   @keyframes borderFlash {
     0%   { border-color: #FF6B6B; }
-    42%  { border-color: #FF6B6B; }
     100% { border-color: #1a1a1a; }
   }
   @keyframes titleFlash {
     0%   { color: #FF6B6B; }
-    42%  { color: #FF6B6B; }
     100% { color: #1a1a1a; }
   }
   @keyframes notifFlash {
     0%   { stroke: #FF6B6B; }
-    42%  { stroke: #FF6B6B; }
     100% { stroke: #8b6ed4; }
   }
   @keyframes statusFlash {
     0%   { stroke: #FF6B6B; }
-    42%  { stroke: #FF6B6B; }
     100% { stroke: #c0392b; }
   }
-  .card-flash::before                   { animation: borderFlash 1.6s ease forwards; }
-  .card-flash .task-title               { animation: titleFlash  1.6s ease forwards; }
-  .card-flash .notif-icon svg           { animation: notifFlash  1.6s ease forwards; }
-  .card-flash .status-icon svg circle   { animation: statusFlash 1.6s ease forwards; }
+  .card-flash                           { animation: bgFlash     2.4s ease forwards; }
+  .card-flash::before                   { animation: borderFlash 2.4s ease forwards; }
+  .card-flash .task-title               { animation: titleFlash  2.4s ease forwards; }
+  .card-flash .notif-icon svg           { animation: notifFlash  2.4s ease forwards; }
+  .card-flash .status-icon svg circle   { animation: statusFlash 2.4s ease forwards; }
 
   /* Hidden */
   .hidden { display: none !important; }
@@ -957,7 +973,7 @@
 
       <div class="form-group">
         <label class="form-label" for="days-input">Dage til operation</label>
-        <input class="sketch-input" type="number" id="days-input" min="1" max="30" value="5" />
+        <input class="sketch-input" type="number" id="days-input" min="1" max="30" />
       </div>
 
       <div class="form-group">
@@ -988,18 +1004,13 @@
         <button class="back-btn" onclick="confirmRestart()">
           <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
         </button>
-        <span class="screen-title">Knæoperation – menisk</span>
+        <span class="screen-title">Knæoperation</span>
         <button class="camera-btn" onclick="showCameraModal()">
-          <svg viewBox="0 0 28 26">
+          <svg viewBox="0 0 22 22">
             <!-- camera body -->
-            <rect x="1" y="8" width="22" height="16"/>
+            <path d="M2 20 L20 20 L20 8 L15 8 L15 4 L7 4 L7 8 L2 8 Z"/>
             <!-- lens -->
-            <circle cx="12" cy="16" r="4.5"/>
-            <!-- top notch -->
-            <path d="M8 8V6h8v2"/>
-            <!-- plus badge top-right -->
-            <line x1="21" y1="2" x2="21" y2="8"/>
-            <line x1="18" y1="5" x2="24" y2="5"/>
+            <circle cx="11" cy="14" r="4"/>
           </svg>
         </button>
       </div>
@@ -1102,7 +1113,7 @@
       <button class="back-btn" onclick="closeCameraFlow()">
         <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
       </button>
-      <span class="screen-title">Tilføj til plejejournal</span>
+      <span class="screen-title">Tilføj til forløb</span>
     </div>
     <div class="camera-body">
       <p class="camera-instruction">Tag et billede af papiret fra sygeplejersken</p>
@@ -1113,7 +1124,6 @@
           <path d="M8 8V6h8v2"/>
         </svg>
       </button>
-      <p class="camera-sub">Systemet analyserer indholdet og tilføjer det til din plejejournal</p>
     </div>
     <input type="file" accept="image/*" capture="environment" id="camera-input" style="display:none;" onchange="handlePhoto()"/>
   </div>
@@ -1125,8 +1135,6 @@
         <svg viewBox="0 0 56 52">
           <!-- document outline -->
           <rect x="4" y="4" width="36" height="44"/>
-          <!-- folded corner -->
-          <polyline points="30,4 40,4 40,14 30,14 30,4"/>
           <!-- text lines -->
           <line x1="10" y1="22" x2="34" y2="22"/>
           <line x1="10" y1="30" x2="34" y2="30"/>
@@ -1135,7 +1143,7 @@
           <line x1="2" y1="14" x2="42" y2="14" stroke="#1428F0" stroke-width="2" class="scan-line"/>
         </svg>
       </div>
-      <p class="analysing-text">Analyserer billede<span id="analysing-dots"></span></p>
+      <p class="analysing-text">Analyser billede</p>
     </div>
   </div>
 
@@ -1145,7 +1153,7 @@
       <button class="back-btn" onclick="closeAnalysisToTasks()">
         <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
       </button>
-      <span class="screen-title">Information fundet</span>
+      <span class="screen-title">Smertestillende</span>
     </div>
     <div class="analysis-scroll">
       <div class="analysis-photo-wrap">
@@ -1156,18 +1164,18 @@
         <div class="drug-name">Paracetamol</div>
         <div class="drug-detail">2 tabletter (2×500mg)</div>
         <div class="drug-detail">Morgen · Middag · Aften</div>
-        <div class="drug-detail">Start 23/03 – Slut 27/03</div>
+        <div class="drug-detail" id="paracetamol-dates">Start 23/03 – Slut 27/03</div>
       </div>
       <div class="drug-card">
         <div class="drug-name">Tramadol</div>
         <div class="drug-detail">1 tablet (1×50mg) · efter behov</div>
         <div class="drug-detail">Højst 4 gange dagligt</div>
-        <div class="drug-detail">Start 23/12 – Slut 25/12</div>
+        <div class="drug-detail" id="tramadol-dates">Start 23/12 – Slut 25/12</div>
       </div>
-      <div class="analysis-note">Paracetamol-påmindelser tilføjes til din plejejournal</div>
+      <div class="analysis-note">Paracetamol-påmindelser tilføjes til din forløb</div>
     </div>
     <div class="analysis-cta-wrap">
-      <button class="start-btn" onclick="addToJourney()">Tilføj til din rejse</button>
+      <button class="start-btn" onclick="addToJourney()">Tilføj til din forløb</button>
     </div>
   </div>
 
@@ -1182,9 +1190,19 @@
     </div>
   </div>
 
+  <!-- ══ ERROR MODAL ══ -->
+  <div class="modal-overlay" id="error-modal">
+    <div class="modal-box">
+      <div class="modal-title">Angiv antal dage til operation</div>
+      <div class="modal-btns">
+        <button class="modal-btn primary" onclick="document.getElementById('error-modal').classList.remove('open')">OK</button>
+      </div>
+    </div>
+  </div>
+
   <div class="modal-overlay" id="camera-modal">
     <div class="modal-box">
-      <div class="modal-title">Tilføj information til din digitale plejejournal</div>
+      <div class="modal-title">Tilføj information til din digitale forløb</div>
       <div class="modal-btns">
         <button class="modal-btn primary" onclick="goToCamera()">Ja</button>
         <button class="modal-btn" onclick="closeCameraModal()">Tilbage</button>
@@ -1305,6 +1323,7 @@ function generateTasks(daysToOp, literacy, smoker) {
     notification: t.notification,
     timing: t.timing,
     offset: t.offset,
+    isPainMgmt: t.isPainMgmt || false,
   }));
 
   const preTasks  = eligible.filter(t => t.timing === 'pre' || t.timing === 'pre-last');
@@ -1431,7 +1450,8 @@ function renderTasks(filter) {
     if (dayNum === opDayNum) {
       // ── OPERATION CARD ──
       if (filter === 'idag' || filter === 'overskredet') return; // hide in filters
-      const opCard = document.createElement('div');
+      const opCard = document.createElement('button');
+      opCard.type = 'button';
       opCard.className = 'op-card';
       // Day header above op card
       const opDate = journeyDate(dayNum);
@@ -1494,8 +1514,13 @@ function renderTasks(filter) {
     header.textContent = dayLabel;
     dayGroup.appendChild(header);
 
-    // Render tasks for this day
-    visibleTasks.forEach(({ task }) => {
+    // Render tasks for this day: morgen camera card first, regular tasks middle, middag/aften last
+    const orderedTasks = [
+      ...visibleTasks.filter(t => t.task.isCamera && t.task.title.includes('morgen')),
+      ...visibleTasks.filter(t => !t.task.isCamera),
+      ...visibleTasks.filter(t => t.task.isCamera && !t.task.title.includes('morgen')),
+    ];
+    orderedTasks.forEach(({ task }) => {
       const isCompleted = taskList.findIndex(t => t.task === task) === 0;
       const card = createTaskCard(task, isCompleted);
       if (task.isPainMgmt) card.id = 'pain-mgmt-card';
@@ -1564,7 +1589,12 @@ function setLiteracy(val) {
 }
 
 function startPrototype() {
-  const days = parseInt(document.getElementById('days-input').value, 10) || 5;
+  const raw = document.getElementById('days-input').value;
+  if (!raw) {
+    document.getElementById('error-modal').classList.add('open');
+    return;
+  }
+  const days = parseInt(raw, 10);
   const smoker = document.getElementById('smoker-check').checked;
 
   state.daysToOp = Math.max(1, Math.min(30, days));
@@ -1637,11 +1667,22 @@ function closeCameraFlow() {
 function openNativeCamera() {
   document.getElementById('camera-input').click();
 }
+function populateAnalysisDates() {
+  const fmt = d => `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}`;
+  const opDayNum = state.result.opDayNum;
+  const start = journeyDate(opDayNum + 1);
+  const end   = journeyDate(opDayNum + 5);
+  const range = `Start ${fmt(start)} – Slut ${fmt(end)}`;
+  document.getElementById('paracetamol-dates').textContent = range;
+  document.getElementById('tramadol-dates').textContent    = range;
+}
+
 function handlePhoto() {
   showScreen('screen-analysing');
   startDotsAnimation();
   setTimeout(() => {
     stopDotsAnimation();
+    populateAnalysisDates();
     showScreen('screen-analysis');
   }, 2200);
 }
@@ -1687,29 +1728,33 @@ function addToJourney() {
       taskScroll.scrollTop = Math.max(0, opCard.offsetTop - 48);
     }
 
-    setTimeout(triggerCameraAnimation, 250);
+    setTimeout(triggerCameraAnimation, 375);
   }, 420);
 }
 
 function triggerCameraAnimation() {
   const wraps = [...document.querySelectorAll('.camera-entry-wrap')];
+
+  const flashCard = card => {
+    card.classList.add('card-active');
+    setTimeout(() => {
+      card.classList.add('card-flash');
+      card.classList.remove('card-active');
+    }, 1000);
+  };
+
+  // Pain card flashes first
+  const painCard = document.getElementById('pain-mgmt-card');
+  if (painCard) flashCard(painCard);
+
+  // Camera cards open one by one, each flashing as it opens
   wraps.forEach((wrap, i) => {
     setTimeout(() => {
       wrap.classList.add('open');
       const card = wrap.querySelector('.task-card');
-      if (card) card.classList.add('card-flash');
-    }, i * 150);
+      if (card) flashCard(card);
+    }, i * 225);
   });
-
-  // Flash pain management card after last camera card opens
-  setTimeout(() => {
-    const painCard = document.getElementById('pain-mgmt-card');
-    if (painCard) {
-      painCard.classList.remove('card-flash');
-      void painCard.offsetWidth; // force reflow so animation restarts cleanly
-      painCard.classList.add('card-flash');
-    }
-  }, wraps.length * 150 + 350);
 }
 
 // Init
