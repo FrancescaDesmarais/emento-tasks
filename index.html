@@ -98,7 +98,7 @@
     font-size: 22px;
     font-weight: 700;
     color: var(--ink);
-    text-align: center;
+    text-align: left;
     margin-bottom: 28px;
     letter-spacing: 0.3px;
   }
@@ -967,7 +967,7 @@
 
   <!-- ══ SCREEN 1: START ══ -->
   <div id="screen-start" class="screen active">
-    <p class="start-title">Angiv patientoplysninger</p>
+    <p class="start-title">Patientoplysninger</p>
 
     <div class="start-form-wrap">
 
@@ -987,13 +987,13 @@
       <div class="form-group">
         <label class="checkbox-wrap">
           <input class="sketch-checkbox" type="checkbox" id="smoker-check" />
-          <span class="checkbox-label">Patienten ryger</span>
+          <span class="checkbox-label">Ryger</span>
         </label>
       </div>
 
     </div>
 
-    <button class="start-btn" onclick="startPrototype()">Personaliser opgaveliste</button>
+    <button class="start-btn" onclick="startPrototype()">Personaliser opgaver</button>
   </div>
 
   <!-- ══ SCREEN 2: TASK LIST ══ -->
@@ -1172,10 +1172,10 @@
         <div class="drug-detail">Højst 4 gange dagligt</div>
         <div class="drug-detail" id="tramadol-dates">Start 23/12 – Slut 25/12</div>
       </div>
-      <div class="analysis-note">Paracetamol-påmindelser tilføjes til din forløb</div>
+      <div class="analysis-note">Paracetamol-påmindelser tilføjes til dit forløb</div>
     </div>
     <div class="analysis-cta-wrap">
-      <button class="start-btn" onclick="addToJourney()">Tilføj til din forløb</button>
+      <button class="start-btn" onclick="addToJourney()">Tilføj til dit forløb</button>
     </div>
   </div>
 
@@ -1202,7 +1202,7 @@
 
   <div class="modal-overlay" id="camera-modal">
     <div class="modal-box">
-      <div class="modal-title">Tilføj information til din digitale forløb</div>
+      <div class="modal-title">Tilføj information til dit digitale forløb</div>
       <div class="modal-btns">
         <button class="modal-btn primary" onclick="goToCamera()">Ja</button>
         <button class="modal-btn" onclick="closeCameraModal()">Tilbage</button>
@@ -1269,22 +1269,22 @@ function formatDate(d) {
 // ══════════════════════════════════════
 // section, hhlExclude, smokerOnly, hhlTitle, lhlTitle, notification, timing
 const TASK_DEFS = [
-  { section: 'A', hhlExclude: false, smokerOnly: false, hhlTitle: 'Velkommen',                          lhlTitle: 'Hej!',                         notification: false, timing: 'pre' },
-  { section: 'A', hhlExclude: true,  smokerOnly: false, hhlTitle: null,                                 lhlTitle: 'Gode råd til dig',             notification: false, timing: 'pre' },
-  { section: 'B', hhlExclude: false, smokerOnly: false, hhlTitle: 'Om operationen',                     lhlTitle: 'Hvad sker der?',               notification: false, timing: 'pre' },
-  { section: 'B', hhlExclude: false, smokerOnly: false, hhlTitle: 'Bedøvelse',                          lhlTitle: 'Du sover under operationen',   notification: false, timing: 'pre' },
-  { section: 'C', hhlExclude: false, smokerOnly: false, hhlTitle: 'Gør dig klar',                       lhlTitle: 'Gør dig klar',                 notification: false, timing: 'pre' },
-  { section: 'D', hhlExclude: false, smokerOnly: true,  hhlTitle: 'Rygning påvirker din operation',    lhlTitle: 'Rygning påvirker din operation',notification: false, timing: 'pre' },
-  { section: 'E', hhlExclude: false, smokerOnly: false, hhlTitle: 'Nyttig info om operationsdagen',    lhlTitle: 'Gode råd inden operationen',   notification: false, timing: 'pre' },
-  { section: 'F', hhlExclude: false, smokerOnly: false, hhlTitle: 'Start fastekuren!',                 lhlTitle: 'Start fastekuren!',            notification: true,  timing: 'pre-last' },
-  { section: 'G', hhlExclude: true,  smokerOnly: false, hhlTitle: null,                                  lhlTitle: 'Efter operationen',                    notification: false, timing: 'post', offset: 0  },
-  { section: 'H', hhlExclude: false, smokerOnly: false, hhlTitle: 'Pas på dit ben',                     lhlTitle: 'Pas på dit ben',                       notification: false, timing: 'post', offset: 0  },
-  { section: 'H', hhlExclude: false, smokerOnly: false, hhlTitle: 'Hold styr på smertelindringen',      lhlTitle: 'Hvordan du håndterer din smerte',       notification: false, timing: 'post', offset: 0, isPainMgmt: true  },
-  { section: 'I', hhlExclude: false, smokerOnly: false, hhlTitle: 'Skift bandagen, når du kommer hjem', lhlTitle: 'Skift bandagen, når du kommer hjem',    notification: false, timing: 'post', offset: 1  },
-  { section: 'I', hhlExclude: false, smokerOnly: false, hhlTitle: 'Observér operationssåret',           lhlTitle: 'Hvordan du holder øje med infektion',   notification: false, timing: 'post', offset: 1  },
-  { section: 'J', hhlExclude: false, smokerOnly: false, hhlTitle: 'Om fysisk træning',                  lhlTitle: 'Hvad du kan forvente med fysioterapi',  notification: false, timing: 'post', offset: 2  },
-  { section: 'K', hhlExclude: false, smokerOnly: false, hhlTitle: 'Fjern stingene',                     lhlTitle: 'Fjern stingene',                        notification: true,  timing: 'post', offset: 7  },
-  { section: 'L', hhlExclude: false, smokerOnly: false, hhlTitle: 'Returner brusestolen',               lhlTitle: 'Sådan returnerer du brusestolen',       notification: true,  timing: 'post', offset: 90 },
+  { section: 'A', hhlExclude: false, smokerOnly: false, hhlTitle: 'Velkommen!',                                lhlTitle: 'Velkommen!',                                  notification: false, timing: 'pre' },
+  { section: 'A', hhlExclude: true,  smokerOnly: false, hhlTitle: null,                                        lhlTitle: 'Gode råd til operation',                      notification: false, timing: 'pre' },
+  { section: 'B', hhlExclude: false, smokerOnly: false, hhlTitle: 'Om operation',                              lhlTitle: 'Hvad der vil ske under operationen?',         notification: false, timing: 'pre' },
+  { section: 'B', hhlExclude: false, smokerOnly: false, hhlTitle: 'Om bedøvelsen',                             lhlTitle: 'Du vil sove under operationen',               notification: false, timing: 'pre' },
+  { section: 'C', hhlExclude: false, smokerOnly: false, hhlTitle: 'Forbered dig til operationen',              lhlTitle: 'Nyttig information om operationen',           notification: false, timing: 'pre' },
+  { section: 'D', hhlExclude: false, smokerOnly: true,  hhlTitle: 'Rygning øger risikoen for komplikationer', lhlTitle: 'Rygning øger risikoen for komplikationer',    notification: false, timing: 'pre' },
+  { section: 'E', hhlExclude: false, smokerOnly: false, hhlTitle: 'Aktiviteter på operationsdagen',            lhlTitle: 'Gode råd til operationsdagen',                notification: false, timing: 'pre' },
+  { section: 'F', hhlExclude: false, smokerOnly: false, hhlTitle: 'Begynd at faste kl 02',                    lhlTitle: 'Begynd at faste kl 02',                       notification: true,  timing: 'pre-last' },
+  { section: 'G', hhlExclude: true,  smokerOnly: false, hhlTitle: null,                                        lhlTitle: 'Hvad du skal huske på operationsdagen',       notification: false, timing: 'post', offset: 0 },
+  { section: 'H', hhlExclude: false, smokerOnly: false, hhlTitle: 'Kom igang efter operationen',               lhlTitle: 'Kom igang efter operationen',                 notification: false, timing: 'post', offset: 0 },
+  { section: 'H', hhlExclude: false, smokerOnly: false, hhlTitle: 'Sådan håndterer du smerterne',              lhlTitle: 'Sådan håndterer du smerterne',                notification: false, timing: 'post', offset: 0, isPainMgmt: true },
+  { section: 'I', hhlExclude: false, smokerOnly: false, hhlTitle: 'Sådan skifter du bandage når du kommer hjem', lhlTitle: 'Sådan skifter du bandage når du kommer hjem', notification: false, timing: 'post', offset: 1 },
+  { section: 'I', hhlExclude: false, smokerOnly: false, hhlTitle: 'Observation af operationssår',              lhlTitle: 'Observer operationssår for rødme eller hævelse', notification: false, timing: 'post', offset: 1 },
+  { section: 'J', hhlExclude: false, smokerOnly: false, hhlTitle: 'Om kommunal genoptræning',                  lhlTitle: 'Om kommunal genoptræning',                    notification: false, timing: 'post', offset: 2 },
+  { section: 'K', hhlExclude: false, smokerOnly: false, hhlTitle: 'Fjernelse af klips/tråde',                  lhlTitle: 'Kontakt din læge for at få fjernet stingene', notification: true,  timing: 'post', offset: 7 },
+  { section: 'L', hhlExclude: false, smokerOnly: false, hhlTitle: 'Aflevering af hjælpemidler',                lhlTitle: 'Sådan aflever du hjælpemidler',               notification: true,  timing: 'post', offset: 90 },
 ];
 
 
@@ -1632,6 +1632,10 @@ function closeModal() {
 
 function doRestart() {
   closeModal();
+  document.getElementById('days-input').value = '';
+  document.getElementById('smoker-check').checked = false;
+  setLiteracy('high');
+  state.cameraCardsActive = false;
   showScreen('screen-start');
 }
 
